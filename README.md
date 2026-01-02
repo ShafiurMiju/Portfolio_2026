@@ -1,6 +1,6 @@
-# My Portfolio
+# My Portfolio - Now with Tailwind CSS v4! 🎨
 
-A stunning, modern portfolio website built with Next.js featuring animated backgrounds, interactive elements, and a gorgeous dark theme.
+A stunning, modern portfolio website built with Next.js and **Tailwind CSS v4** featuring animated backgrounds, interactive elements, and a gorgeous dark theme.
 
 ## ✨ Features
 
@@ -12,42 +12,55 @@ A stunning, modern portfolio website built with Next.js featuring animated backg
 - 🎯 **Beautiful project showcases** with hover effects
 - 🔗 **Stylish social media cards**
 - 📱 **Fully responsive** design for all devices
+- ⚡ **Tailwind CSS v4** - Latest version with new PostCSS architecture
 
 ## 🚀 Tech Stack
 
 - **Next.js 14** - React framework
 - **React Hooks** - State management
-- **CSS Modules** - Scoped styling
+- **Tailwind CSS v4** - Utility-first CSS framework (latest!)
+- **@tailwindcss/postcss** - Modern PostCSS plugin
 - **Google Fonts** - Inter & Space Grotesk
 
 ## 🛠️ Getting Started
 
 1. Clone the repository:
-\`\`\`bash
+```bash
 git clone https://github.com/ShafiurMiju/myPortfolio.git
 cd myPortfolio
-\`\`\`
+```
 
 2. Install dependencies:
-\`\`\`bash
+```bash
 npm install
-\`\`\`
+```
 
 3. Run the development server:
-\`\`\`bash
+```bash
 npm run dev
-\`\`\`
+```
 
 4. Open [http://localhost:3000](http://localhost:3000) in your browser
 
+## 🎨 Tailwind Configuration
+
+The project uses Tailwind CSS v4 with custom configuration in `tailwind.config.js`:
+
+- **Custom Colors**: Primary purple variants, dark theme colors
+- **Custom Animations**: float, gradient-shift, fade-in-up, pulse-slow
+- **Custom Fonts**: Inter (sans) and Space Grotesk (mono)
+- **Extended Theme**: Custom keyframes and animation timings
+
 ## 📝 Customization
 
-Update the following in \`pages/index.js\`:
+Update the following in `pages/index.js`:
 - Your name and title in the hero section
 - About section content
 - Skills and expertise levels
 - Project details, descriptions, and links
 - Contact information and social media handles
+
+To customize colors and styles, edit `tailwind.config.js`:
 
 ## 📄 License
 

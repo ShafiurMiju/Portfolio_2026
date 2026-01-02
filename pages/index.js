@@ -1,14 +1,46 @@
 import Head from 'next/head'
+import Link from 'next/link'
 import { useState, useEffect } from 'react'
-import styles from '../styles/home.module.css'
+import OrbitalMenu from '../components/OrbitalMenu'
 
 export default function Home() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const [scrollY, setScrollY] = useState(0)
+  const [isMouseDown, setIsMouseDown] = useState(false)
+  const [trails, setTrails] = useState([])
 
   useEffect(() => {
     const handleMouseMove = (e) => {
       setMousePosition({ x: e.clientX, y: e.clientY })
+      
+      // Add trail effect when mouse is pressed and moving
+      if (isMouseDown) {
+        const newTrail = {
+          id: Date.now() + Math.random(),
+          x: e.clientX,
+          y: e.clientY,
+          timestamp: Date.now()
+        }
+        setTrails(prev => [...prev, newTrail])
+        
+        // Remove trail after 500ms
+        setTimeout(() => {
+          setTrails(prev => prev.filter(trail => trail.id !== newTrail.id))
+        }, 500)
+      }
+    }
+    
+    const handleMouseDown = (e) => {
+      if (e.button === 0) { // Left click only
+        e.preventDefault()
+        setIsMouseDown(true)
+        document.body.style.userSelect = 'none'
+      }
+    }
+    
+    const handleMouseUp = () => {
+      setIsMouseDown(false)
+      document.body.style.userSelect = ''
     }
     
     const handleScroll = () => {
@@ -16,132 +48,172 @@ export default function Home() {
     }
 
     window.addEventListener('mousemove', handleMouseMove)
+    window.addEventListener('mousedown', handleMouseDown)
+    window.addEventListener('mouseup', handleMouseUp)
     window.addEventListener('scroll', handleScroll)
     
     return () => {
       window.removeEventListener('mousemove', handleMouseMove)
+      window.removeEventListener('mousedown', handleMouseDown)
+      window.removeEventListener('mouseup', handleMouseUp)
       window.removeEventListener('scroll', handleScroll)
     }
-  }, [])
+  }, [isMouseDown])
 
   return (
     <>
       <Head>
-        <title>Your Name - Software Engineer Portfolio</title>
+        <title>Shafiur Miju - Software Engineer</title>
         <meta name="description" content="Software Engineer Portfolio" />
         <link rel="icon" href="/favicon.ico" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
       </Head>
-
+      {/* Orbital Menu */}
+      <OrbitalMenu />
       {/* Animated Background */}
-      <div className={styles.backgroundAnimation}>
-        <div className={styles.gradientBlob} style={{
-          transform: `translate(${mousePosition.x * 0.02}px, ${mousePosition.y * 0.02}px)`
-        }}></div>
-        <div className={styles.gradientBlob2} style={{
-          transform: `translate(${-mousePosition.x * 0.015}px, ${-mousePosition.y * 0.015}px)`
-        }}></div>
-        <div className={styles.gradientBlob3} style={{
-          transform: `translate(${mousePosition.x * 0.01}px, ${mousePosition.y * 0.025}px)`
-        }}></div>
+      <div className="fixed top-0 left-0 w-full h-full -z-10 overflow-hidden bg-gradient-to-br from-dark to-dark-lighter">
+        <div 
+          className="absolute w-[600px] h-[600px] rounded-full top-[-200px] left-[-200px] blur-[80px] animate-float"
+          style={{
+            background: 'radial-gradient(circle, rgba(138, 43, 226, 0.4) 0%, rgba(75, 0, 130, 0.2) 50%, transparent 70%)',
+            transform: `translate(${mousePosition.x * 0.02}px, ${mousePosition.y * 0.02}px)`
+          }}
+        ></div>
+        <div 
+          className="absolute w-[500px] h-[500px] rounded-full top-1/2 right-[-150px] blur-[80px] animate-float-reverse"
+          style={{
+            background: 'radial-gradient(circle, rgba(0, 191, 255, 0.3) 0%, rgba(30, 144, 255, 0.15) 50%, transparent 70%)',
+            transform: `translate(${-mousePosition.x * 0.015}px, ${-mousePosition.y * 0.015}px)`
+          }}
+        ></div>
+        <div 
+          className="absolute w-[450px] h-[450px] rounded-full bottom-[-150px] left-1/2 blur-[80px] animate-float-slow"
+          style={{
+            background: 'radial-gradient(circle, rgba(255, 20, 147, 0.3) 0%, rgba(199, 21, 133, 0.15) 50%, transparent 70%)',
+            transform: `translate(${mousePosition.x * 0.01}px, ${mousePosition.y * 0.025}px)`
+          }}
+        ></div>
       </div>
 
-      {/* Cursor Follower */}
-      <div className={styles.cursorFollower} style={{
-        left: `${mousePosition.x}px`,
-        top: `${mousePosition.y}px`
-      }}></div>
+      {/* Mouse Trail Effect */}
+      {trails.map((trail) => (
+        <div
+          key={trail.id}
+          className="fixed pointer-events-none z-[9998] animate-trail-fade"
+          style={{
+            left: `${trail.x}px`,
+            top: `${trail.y}px`,
+            transform: 'translate(-50%, -50%)'
+          }}
+        >
+          <div className="w-6 h-6 rounded-full bg-gradient-to-r from-primary-accent via-primary to-primary-light opacity-80 blur-sm"></div>
+        </div>
+      ))}
 
-      <main className={styles.main}>
+      {/* Cursor Follower */}
+      <div 
+        className="fixed w-5 h-5 border-2 border-primary/50 rounded-full pointer-events-none z-[9999] transition-all duration-100 mix-blend-difference"
+        style={{
+          left: `${mousePosition.x}px`,
+          top: `${mousePosition.y}px`,
+          transform: 'translate(-50%, -50%)'
+        }}
+      ></div>
+
+      <main className="relative max-w-[1400px] mx-auto px-8 min-h-screen overflow-x-hidden">
         {/* Hero Section */}
-        <section className={styles.hero}>
-          <div className={styles.heroContent} style={{
-            transform: `translateY(${scrollY * 0.3}px)`
-          }}>
-            <div className={styles.badge}>
-              <span className={styles.badgeDot}></span>
+        <section className="min-h-screen flex flex-col justify-center items-start py-8 relative">
+          <div 
+            className="max-w-[800px]"
+            style={{
+              transform: `translateY(${scrollY * 0.3}px)`
+            }}
+          >
+            <div className="inline-flex items-center gap-2 px-5 py-2 bg-primary/10 border border-primary/30 rounded-[50px] text-primary text-sm font-medium mb-8 backdrop-blur-[10px] animate-fade-in-up">
+              <span className="w-2 h-2 bg-primary rounded-full animate-pulse-slow"></span>
               Available for work
             </div>
-            <h1 className={styles.title}>
-              <span className={styles.titleLine}>Hi, I'm</span>
-              <span className={styles.nameWrapper}>
-                <span className={styles.name}>Your Name</span>
-                <span className={styles.nameGlow}>Your Name</span>
+            <h1 className="text-[clamp(3rem,8vw,6rem)] font-extrabold mb-4 leading-[1.1] [animation:fadeInUp_0.8s_ease_0.2s_both]">
+              <span className="block text-white/70 text-[clamp(2rem,4vw,3rem)] font-medium mb-2">Hi, I'm</span>
+              <span className="relative inline-block">
+                <span className="relative bg-gradient-to-r from-primary via-primary-accent to-primary-light bg-clip-text text-transparent animate-gradient-shift bg-200">
+                  MD SHAFIUR RAHMAN
+                </span>
+                <span className="absolute top-0 left-0 bg-gradient-to-r from-primary via-primary-accent to-primary-light bg-clip-text text-transparent blur-[20px] opacity-50 animate-gradient-shift bg-200">
+                  MD SHAFIUR RAHMAN
+                </span>
               </span>
             </h1>
-            <h2 className={styles.subtitle}>
-              <span className={styles.typewriter}>Software Engineer</span>
-              <span className={styles.cursor}>|</span>
+            <h2 className="text-[clamp(1.5rem,3vw,2.5rem)] text-white/80 mb-6 font-medium [animation:fadeInUp_0.8s_ease_0.4s_both]">
+              <span className="font-mono">Software Engineer</span>
+              <span className="animate-blink text-primary">|</span>
             </h2>
-            <p className={styles.description}>
+            <p className="text-[clamp(1rem,2vw,1.25rem)] text-white/60 max-w-[600px] leading-[1.7] mb-10 [animation:fadeInUp_0.8s_ease_0.6s_both]">
               Crafting exceptional digital experiences through elegant code and innovative solutions.
             </p>
-            <div className={styles.ctaButtons}>
-              <a href="#projects" className={styles.primaryBtn}>
+            <div className="flex gap-4 flex-wrap [animation:fadeInUp_0.8s_ease_0.8s_both]">
+              <a href="#projects" className="inline-flex items-center gap-3 px-8 py-4 rounded-xl font-semibold text-base transition-all duration-300 relative overflow-hidden bg-gradient-to-r from-primary to-primary-dark text-white shadow-[0_10px_40px_rgba(187,134,252,0.3)] hover:translate-y-[-3px] hover:shadow-[0_15px_50px_rgba(187,134,252,0.4)] before:content-[''] before:absolute before:top-0 before:left-[-100%] before:w-full before:h-full before:bg-gradient-to-r before:from-transparent before:via-white/30 before:to-transparent before:transition-all before:duration-500 hover:before:left-[100%]">
                 <span>Explore Work</span>
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
                   <path d="M7 10H17M17 10L13 6M17 10L13 14" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
                 </svg>
               </a>
-              <a href="#contact" className={styles.secondaryBtn}>
+              <a href="#contact" className="inline-flex items-center gap-3 px-8 py-4 rounded-xl font-semibold text-base transition-all duration-300 bg-white/5 border-2 border-primary/30 text-primary backdrop-blur-[10px] hover:bg-primary/10 hover:border-primary hover:translate-y-[-3px]">
                 <span>Get In Touch</span>
               </a>
-            </div>
-            <div className={styles.scrollIndicator}>
-              <div className={styles.scrollMouse}></div>
             </div>
           </div>
         </section>
 
         {/* About Section */}
-        <section id="about" className={styles.section}>
-          <div className={styles.sectionHeader}>
-            <span className={styles.sectionNumber}>01.</span>
-            <h2 className={styles.sectionTitle}>About Me</h2>
-            <div className={styles.sectionLine}></div>
+        <section id="about" className="py-32 relative">
+          <div className="flex items-center gap-4 mb-16">
+            <span className="text-2xl text-primary font-bold font-mono">01.</span>
+            <h2 className="text-[clamp(2rem,4vw,3rem)] text-white font-bold m-0 whitespace-nowrap">About Me</h2>
+            <div className="flex-1 h-px bg-gradient-to-r from-primary/30 to-transparent"></div>
           </div>
-          <div className={styles.aboutGrid}>
-            <div className={styles.aboutContent}>
-              <p className={styles.aboutText}>
+          <div className="grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] gap-16 items-center">
+            <div className="text-white/80">
+              <p className="text-lg leading-[1.8] mb-6 text-white/70">
                 I'm a passionate software engineer who transforms complex problems into elegant, user-centric solutions. 
-                With a deep love for both <span className={styles.highlight}>design and code</span>, I bridge the gap between 
+                With a deep love for both <span className="text-primary font-semibold relative">design and code</span>, I bridge the gap between 
                 aesthetics and functionality.
               </p>
-              <p className={styles.aboutText}>
+              <p className="text-lg leading-[1.8] mb-6 text-white/70">
                 My journey in tech has been driven by curiosity and a relentless pursuit of excellence. I specialize in 
-                building <span className={styles.highlight}>performant, scalable applications</span> that users love.
+                building <span className="text-primary font-semibold relative">performant, scalable applications</span> that users love.
               </p>
-              <p className={styles.aboutText}>
+              <p className="text-lg leading-[1.8] mb-6 text-white/70">
                 When I'm not coding, you'll find me contributing to open source, exploring cutting-edge technologies, 
                 or mentoring aspiring developers.
               </p>
-              <div className={styles.statsGrid}>
-                <div className={styles.statCard}>
-                  <div className={styles.statNumber}>5+</div>
-                  <div className={styles.statLabel}>Years Experience</div>
+              <div className="grid grid-cols-3 gap-8 mt-12">
+                <div className="text-center p-6 bg-primary/5 border border-primary/20 rounded-xl transition-all duration-300 hover:translate-y-[-5px] hover:bg-primary/10 hover:border-primary/40">
+                  <div className="text-4xl font-bold text-primary mb-2 font-mono">5+</div>
+                  <div className="text-sm text-white/60">Years Experience</div>
                 </div>
-                <div className={styles.statCard}>
-                  <div className={styles.statNumber}>50+</div>
-                  <div className={styles.statLabel}>Projects Completed</div>
+                <div className="text-center p-6 bg-primary/5 border border-primary/20 rounded-xl transition-all duration-300 hover:translate-y-[-5px] hover:bg-primary/10 hover:border-primary/40">
+                  <div className="text-4xl font-bold text-primary mb-2 font-mono">50+</div>
+                  <div className="text-sm text-white/60">Projects Completed</div>
                 </div>
-                <div className={styles.statCard}>
-                  <div className={styles.statNumber}>100%</div>
-                  <div className={styles.statLabel}>Client Satisfaction</div>
+                <div className="text-center p-6 bg-primary/5 border border-primary/20 rounded-xl transition-all duration-300 hover:translate-y-[-5px] hover:bg-primary/10 hover:border-primary/40">
+                  <div className="text-4xl font-bold text-primary mb-2 font-mono">100%</div>
+                  <div className="text-sm text-white/60">Client Satisfaction</div>
                 </div>
               </div>
             </div>
-            <div className={styles.aboutImageWrapper}>
-              <div className={styles.aboutImage}>
-                <div className={styles.imageGradient}></div>
-                <div className={styles.codeBlock}>
-                  <div className={styles.codeHeader}>
-                    <div className={styles.codeDot}></div>
-                    <div className={styles.codeDot}></div>
-                    <div className={styles.codeDot}></div>
+            <div className="relative">
+              <div className="relative aspect-square rounded-[20px] overflow-hidden">
+                <div className="w-full h-full bg-gradient-to-br from-primary/30 to-primary-accent/30 rounded-[20px]"></div>
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] bg-dark/90 rounded-xl p-4 backdrop-blur-[10px] border border-primary/30">
+                  <div className="flex gap-2 mb-4">
+                    <div className="w-3 h-3 rounded-full bg-[#ff5f56]"></div>
+                    <div className="w-3 h-3 rounded-full bg-[#ffbd2e]"></div>
+                    <div className="w-3 h-3 rounded-full bg-[#27c93f]"></div>
                   </div>
-                  <pre className={styles.codeContent}>
+                  <pre className="font-mono text-sm leading-[1.6] text-primary m-0">
 {`const developer = {
   name: "Your Name",
   passion: "Building",
@@ -157,14 +229,14 @@ export default function Home() {
         </section>
 
         {/* Skills Section */}
-        <section id="skills" className={styles.section}>
-          <div className={styles.sectionHeader}>
-            <span className={styles.sectionNumber}>02.</span>
-            <h2 className={styles.sectionTitle}>Skills & Expertise</h2>
-            <div className={styles.sectionLine}></div>
+        <section id="skills" className="py-32 relative">
+          <div className="flex items-center gap-4 mb-16">
+            <span className="text-2xl text-primary font-bold font-mono">02.</span>
+            <h2 className="text-[clamp(2rem,4vw,3rem)] text-white font-bold m-0 whitespace-nowrap">Skills & Expertise</h2>
+            <div className="flex-1 h-px bg-gradient-to-r from-primary/30 to-transparent"></div>
           </div>
-          <div className={styles.skillsContainer}>
-            <div className={styles.skillsGrid}>
+          <div className="max-w-[1200px] mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 mb-16">
               {[
                 { icon: '⚛️', name: 'React / Next.js', level: 95 },
                 { icon: '📘', name: 'TypeScript', level: 90 },
@@ -175,24 +247,31 @@ export default function Home() {
                 { icon: '🗄️', name: 'Databases', level: 87 },
                 { icon: '🐳', name: 'Docker', level: 83 }
               ].map((skill, index) => (
-                <div key={index} className={styles.skillCard}>
-                  <div className={styles.skillIcon}>{skill.icon}</div>
-                  <div className={styles.skillInfo}>
-                    <div className={styles.skillName}>{skill.name}</div>
-                    <div className={styles.skillBar}>
-                      <div className={styles.skillProgress} style={{ width: `${skill.level}%` }}></div>
+                <div key={index} className="flex items-center gap-6 p-6 bg-primary/5 border border-primary/20 rounded-2xl transition-all duration-300 hover:translate-y-[-5px] hover:bg-primary/10 hover:border-primary/40 hover:shadow-[0_10px_30px_rgba(187,134,252,0.2)]">
+                  <div className="text-4xl w-[60px] h-[60px] flex items-center justify-center bg-primary/10 rounded-xl">
+                    {skill.icon}
+                  </div>
+                  <div className="flex-1">
+                    <div className="text-lg font-semibold text-white mb-2">{skill.name}</div>
+                    <div className="h-1.5 bg-primary/10 rounded-[10px] overflow-hidden">
+                      <div 
+                        className="h-full bg-gradient-to-r from-primary to-primary-accent rounded-[10px] animate-progress" 
+                        style={{ width: `${skill.level}%` }}
+                      ></div>
                     </div>
                   </div>
                 </div>
               ))}
             </div>
-            <div className={styles.techStack}>
-              <h3 className={styles.techStackTitle}>Tech Stack</h3>
-              <div className={styles.techTags}>
+            <div className="p-8 bg-primary/[0.03] border border-primary/10 rounded-[20px]">
+              <h3 className="text-2xl text-white mb-6 font-semibold">Tech Stack</h3>
+              <div className="flex flex-wrap gap-3">
                 {['React', 'Next.js', 'TypeScript', 'Node.js', 'Express', 'Python', 'Django', 
                   'PostgreSQL', 'MongoDB', 'Redis', 'GraphQL', 'REST', 'Docker', 'Kubernetes',
                   'AWS', 'Git', 'CI/CD', 'Testing', 'Agile'].map((tech, index) => (
-                  <span key={index} className={styles.techTag}>{tech}</span>
+                  <span key={index} className="px-4 py-2 bg-primary/10 border border-primary/20 rounded-lg text-white/80 text-sm font-medium transition-all duration-300 hover:bg-primary/20 hover:border-primary hover:translate-y-[-2px]">
+                    {tech}
+                  </span>
                 ))}
               </div>
             </div>
@@ -200,45 +279,45 @@ export default function Home() {
         </section>
 
         {/* Projects Section */}
-        <section id="projects" className={styles.section}>
-          <div className={styles.sectionHeader}>
-            <span className={styles.sectionNumber}>03.</span>
-            <h2 className={styles.sectionTitle}>Featured Work</h2>
-            <div className={styles.sectionLine}></div>
+        <section id="projects" className="py-32 relative">
+          <div className="flex items-center gap-4 mb-16">
+            <span className="text-2xl text-primary font-bold font-mono">03.</span>
+            <h2 className="text-[clamp(2rem,4vw,3rem)] text-white font-bold m-0 whitespace-nowrap">Featured Work</h2>
+            <div className="flex-1 h-px bg-gradient-to-r from-primary/30 to-transparent"></div>
           </div>
-          <div className={styles.projectsGrid}>
-            <div className={styles.projectCard}>
-              <div className={styles.projectNumber}>01</div>
-              <div className={styles.projectImage}>
-                <div className={styles.projectImageGradient}></div>
-                <div className={styles.projectOverlay}>
+          <div className="grid gap-12">
+            <div className="grid lg:grid-cols-[1fr_1.2fr] gap-8 p-8 bg-primary/[0.03] border border-primary/20 rounded-3xl transition-all duration-[400ms] hover:translate-y-[-10px] hover:border-primary/50 hover:shadow-[0_20px_60px_rgba(187,134,252,0.2)] relative overflow-hidden">
+              <div className="absolute top-4 right-4 text-[4rem] font-black text-primary/10 font-mono leading-none">01</div>
+              <div className="relative aspect-[16/10] rounded-2xl overflow-hidden bg-dark/50">
+                <div className="w-full h-full bg-gradient-to-br from-primary/40 to-primary-dark/60"></div>
+                <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center opacity-0 transition-opacity duration-300 bg-dark/70 backdrop-blur-[10px] hover:opacity-100">
                   <svg width="60" height="60" viewBox="0 0 60 60" fill="none">
                     <rect width="60" height="60" rx="12" fill="rgba(255,255,255,0.1)"/>
                     <path d="M25 30L35 30M35 30L31 26M35 30L31 34" stroke="white" strokeWidth="2" strokeLinecap="round"/>
                   </svg>
                 </div>
               </div>
-              <div className={styles.projectContent}>
-                <div className={styles.projectCategory}>Full-Stack Development</div>
-                <h3 className={styles.projectTitle}>E-Commerce Platform</h3>
-                <p className={styles.projectDescription}>
+              <div className="flex flex-col justify-center">
+                <div className="text-sm text-primary uppercase tracking-[0.1em] font-semibold mb-2">Full-Stack Development</div>
+                <h3 className="text-3xl text-white mb-4 font-bold">E-Commerce Platform</h3>
+                <p className="text-base leading-[1.7] text-white/70 mb-6">
                   A modern e-commerce solution with real-time inventory, advanced analytics, and seamless payment integration. 
                   Handles 10K+ daily transactions with 99.9% uptime.
                 </p>
-                <div className={styles.projectTech}>
-                  <span>React</span>
-                  <span>Node.js</span>
-                  <span>PostgreSQL</span>
-                  <span>Stripe</span>
+                <div className="flex flex-wrap gap-2 mb-6">
+                  <span className="px-3.5 py-1.5 bg-primary/10 border border-primary/30 rounded-md text-white/80 text-sm font-medium">React</span>
+                  <span className="px-3.5 py-1.5 bg-primary/10 border border-primary/30 rounded-md text-white/80 text-sm font-medium">Node.js</span>
+                  <span className="px-3.5 py-1.5 bg-primary/10 border border-primary/30 rounded-md text-white/80 text-sm font-medium">PostgreSQL</span>
+                  <span className="px-3.5 py-1.5 bg-primary/10 border border-primary/30 rounded-md text-white/80 text-sm font-medium">Stripe</span>
                 </div>
-                <div className={styles.projectLinks}>
-                  <a href="#" className={styles.projectLink}>
+                <div className="flex gap-6">
+                  <a href="#" className="inline-flex items-center gap-2 text-primary font-semibold no-underline transition-all duration-300 hover:gap-3 hover:text-primary-accent">
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                       <path d="M6 3L11 8L6 13" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
                     </svg>
                     Live Demo
                   </a>
-                  <a href="#" className={styles.projectLink}>
+                  <a href="#" className="inline-flex items-center gap-2 text-primary font-semibold no-underline transition-all duration-300 hover:gap-3 hover:text-primary-accent">
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
                       <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
                     </svg>
@@ -248,38 +327,38 @@ export default function Home() {
               </div>
             </div>
 
-            <div className={styles.projectCard}>
-              <div className={styles.projectNumber}>02</div>
-              <div className={styles.projectImage}>
-                <div className={styles.projectImageGradient2}></div>
-                <div className={styles.projectOverlay}>
+            <div className="grid lg:grid-cols-[1.2fr_1fr] gap-8 p-8 bg-primary/[0.03] border border-primary/20 rounded-3xl transition-all duration-[400ms] hover:translate-y-[-10px] hover:border-primary/50 hover:shadow-[0_20px_60px_rgba(187,134,252,0.2)] relative overflow-hidden">
+              <div className="absolute top-4 right-4 text-[4rem] font-black text-primary/10 font-mono leading-none">02</div>
+              <div className="relative aspect-[16/10] rounded-2xl overflow-hidden bg-dark/50 lg:order-2">
+                <div className="w-full h-full bg-gradient-to-br from-primary-accent/40 to-[#009688]/60"></div>
+                <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center opacity-0 transition-opacity duration-300 bg-dark/70 backdrop-blur-[10px] hover:opacity-100">
                   <svg width="60" height="60" viewBox="0 0 60 60" fill="none">
                     <rect width="60" height="60" rx="12" fill="rgba(255,255,255,0.1)"/>
                     <path d="M25 30L35 30M35 30L31 26M35 30L31 34" stroke="white" strokeWidth="2" strokeLinecap="round"/>
                   </svg>
                 </div>
               </div>
-              <div className={styles.projectContent}>
-                <div className={styles.projectCategory}>AI/ML Integration</div>
-                <h3 className={styles.projectTitle}>AI Task Manager</h3>
-                <p className={styles.projectDescription}>
+              <div className="flex flex-col justify-center">
+                <div className="text-sm text-primary uppercase tracking-[0.1em] font-semibold mb-2">AI/ML Integration</div>
+                <h3 className="text-3xl text-white mb-4 font-bold">AI Task Manager</h3>
+                <p className="text-base leading-[1.7] text-white/70 mb-6">
                   Intelligent task management powered by natural language processing. Smart scheduling, priority detection, 
                   and automated workflows increase productivity by 40%.
                 </p>
-                <div className={styles.projectTech}>
-                  <span>Next.js</span>
-                  <span>Python</span>
-                  <span>OpenAI</span>
-                  <span>TensorFlow</span>
+                <div className="flex flex-wrap gap-2 mb-6">
+                  <span className="px-3.5 py-1.5 bg-primary/10 border border-primary/30 rounded-md text-white/80 text-sm font-medium">Next.js</span>
+                  <span className="px-3.5 py-1.5 bg-primary/10 border border-primary/30 rounded-md text-white/80 text-sm font-medium">Python</span>
+                  <span className="px-3.5 py-1.5 bg-primary/10 border border-primary/30 rounded-md text-white/80 text-sm font-medium">OpenAI</span>
+                  <span className="px-3.5 py-1.5 bg-primary/10 border border-primary/30 rounded-md text-white/80 text-sm font-medium">TensorFlow</span>
                 </div>
-                <div className={styles.projectLinks}>
-                  <a href="#" className={styles.projectLink}>
+                <div className="flex gap-6">
+                  <a href="#" className="inline-flex items-center gap-2 text-primary font-semibold no-underline transition-all duration-300 hover:gap-3 hover:text-primary-accent">
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                       <path d="M6 3L11 8L6 13" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
                     </svg>
                     Live Demo
                   </a>
-                  <a href="#" className={styles.projectLink}>
+                  <a href="#" className="inline-flex items-center gap-2 text-primary font-semibold no-underline transition-all duration-300 hover:gap-3 hover:text-primary-accent">
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
                       <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
                     </svg>
@@ -289,38 +368,38 @@ export default function Home() {
               </div>
             </div>
 
-            <div className={styles.projectCard}>
-              <div className={styles.projectNumber}>03</div>
-              <div className={styles.projectImage}>
-                <div className={styles.projectImageGradient3}></div>
-                <div className={styles.projectOverlay}>
+            <div className="grid lg:grid-cols-[1fr_1.2fr] gap-8 p-8 bg-primary/[0.03] border border-primary/20 rounded-3xl transition-all duration-[400ms] hover:translate-y-[-10px] hover:border-primary/50 hover:shadow-[0_20px_60px_rgba(187,134,252,0.2)] relative overflow-hidden">
+              <div className="absolute top-4 right-4 text-[4rem] font-black text-primary/10 font-mono leading-none">03</div>
+              <div className="relative aspect-[16/10] rounded-2xl overflow-hidden bg-dark/50">
+                <div className="w-full h-full bg-gradient-to-br from-primary-light/40 to-[#FF1493]/60"></div>
+                <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center opacity-0 transition-opacity duration-300 bg-dark/70 backdrop-blur-[10px] hover:opacity-100">
                   <svg width="60" height="60" viewBox="0 0 60 60" fill="none">
                     <rect width="60" height="60" rx="12" fill="rgba(255,255,255,0.1)"/>
                     <path d="M25 30L35 30M35 30L31 26M35 30L31 34" stroke="white" strokeWidth="2" strokeLinecap="round"/>
                   </svg>
                 </div>
               </div>
-              <div className={styles.projectContent}>
-                <div className={styles.projectCategory}>Real-Time Collaboration</div>
-                <h3 className={styles.projectTitle}>Code Editor Pro</h3>
-                <p className={styles.projectDescription}>
+              <div className="flex flex-col justify-center">
+                <div className="text-sm text-primary uppercase tracking-[0.1em] font-semibold mb-2">Real-Time Collaboration</div>
+                <h3 className="text-3xl text-white mb-4 font-bold">Code Editor Pro</h3>
+                <p className="text-base leading-[1.7] text-white/70 mb-6">
                   Browser-based collaborative code editor with real-time sync, syntax highlighting, and live preview. 
                   Supports 50+ programming languages with zero latency.
                 </p>
-                <div className={styles.projectTech}>
-                  <span>React</span>
-                  <span>WebSockets</span>
-                  <span>Monaco</span>
-                  <span>Docker</span>
+                <div className="flex flex-wrap gap-2 mb-6">
+                  <span className="px-3.5 py-1.5 bg-primary/10 border border-primary/30 rounded-md text-white/80 text-sm font-medium">React</span>
+                  <span className="px-3.5 py-1.5 bg-primary/10 border border-primary/30 rounded-md text-white/80 text-sm font-medium">WebSockets</span>
+                  <span className="px-3.5 py-1.5 bg-primary/10 border border-primary/30 rounded-md text-white/80 text-sm font-medium">Monaco</span>
+                  <span className="px-3.5 py-1.5 bg-primary/10 border border-primary/30 rounded-md text-white/80 text-sm font-medium">Docker</span>
                 </div>
-                <div className={styles.projectLinks}>
-                  <a href="#" className={styles.projectLink}>
+                <div className="flex gap-6">
+                  <a href="#" className="inline-flex items-center gap-2 text-primary font-semibold no-underline transition-all duration-300 hover:gap-3 hover:text-primary-accent">
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                       <path d="M6 3L11 8L6 13" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
                     </svg>
                     Live Demo
                   </a>
-                  <a href="#" className={styles.projectLink}>
+                  <a href="#" className="inline-flex items-center gap-2 text-primary font-semibold no-underline transition-all duration-300 hover:gap-3 hover:text-primary-accent">
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
                       <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
                     </svg>
@@ -329,84 +408,94 @@ export default function Home() {
                 </div>
               </div>
             </div>
+          </div>
+
+          {/* View All Work Button */}
+          <div className="mt-16 text-center">
+            <Link href="/work" className="inline-flex items-center gap-3 px-10 py-5 bg-primary/10 border-2 border-primary/30 text-primary rounded-xl font-semibold text-lg transition-all duration-300 hover:bg-primary hover:text-white hover:border-primary hover:translate-y-[-5px] hover:shadow-[0_20px_50px_rgba(187,134,252,0.3)]">
+              View All Work
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M7 12H17M17 12L13 8M17 12L13 16" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+              </svg>
+            </Link>
           </div>
         </section>
 
         {/* Contact Section */}
-        <section id="contact" className={styles.section}>
-          <div className={styles.sectionHeader}>
-            <span className={styles.sectionNumber}>04.</span>
-            <h2 className={styles.sectionTitle}>Let's Connect</h2>
-            <div className={styles.sectionLine}></div>
+        <section id="contact" className="py-32 relative">
+          <div className="flex items-center gap-4 mb-16">
+            <span className="text-2xl text-primary font-bold font-mono">04.</span>
+            <h2 className="text-[clamp(2rem,4vw,3rem)] text-white font-bold m-0 whitespace-nowrap">Let's Connect</h2>
+            <div className="flex-1 h-px bg-gradient-to-r from-primary/30 to-transparent"></div>
           </div>
-          <div className={styles.contactContainer}>
-            <div className={styles.contactLeft}>
-              <h3 className={styles.contactHeading}>Have an exciting project?</h3>
-              <p className={styles.contactText}>
+          <div className="grid lg:grid-cols-[1fr_1.5fr] gap-16 max-w-[1200px] mx-auto">
+            <div className="flex flex-col justify-center">
+              <h3 className="text-4xl text-white mb-6 font-bold leading-[1.2]">Have an exciting project?</h3>
+              <p className="text-lg leading-[1.7] text-white/70 mb-8">
                 I'm always interested in hearing about new projects and opportunities. 
                 Whether you have a question or just want to say hi, feel free to reach out!
               </p>
-              <a href="mailto:your.email@example.com" className={styles.emailButton}>
+              <a href="mailto:your.email@example.com" className="inline-flex items-center gap-4 px-8 py-5 bg-gradient-to-r from-primary to-primary-dark text-white rounded-xl font-semibold no-underline transition-all duration-300 shadow-[0_10px_30px_rgba(187,134,252,0.3)] self-start hover:translate-y-[-3px] hover:shadow-[0_15px_40px_rgba(187,134,252,0.4)]">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                   <path d="M3 8L10.89 13.26C11.5432 13.6742 12.4568 13.6742 13.11 13.26L21 8M5 19H19C20.1046 19 21 18.1046 21 17V7C21 5.89543 20.1046 5 19 5H5C3.89543 5 3 5.89543 3 7V17C3 18.1046 3.89543 19 5 19Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
                 your.email@example.com
               </a>
             </div>
-            <div className={styles.contactRight}>
-              <div className={styles.socialGrid}>
-                <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer" className={styles.socialCard}>
-                  <div className={styles.socialIcon}>
+            <div className="flex flex-col">
+              <div className="grid md:grid-cols-2 gap-4">
+                <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 p-6 bg-primary/5 border border-primary/20 rounded-2xl no-underline transition-all duration-300 relative overflow-hidden hover:translate-x-[5px] hover:bg-primary/10 hover:border-primary/40 before:content-[''] before:absolute before:top-0 before:left-[-100%] before:w-full before:h-full before:bg-gradient-to-r before:from-transparent before:via-primary/10 before:to-transparent before:transition-all before:duration-500 hover:before:left-[100%]">
+                  <div className="w-12 h-12 flex items-center justify-center bg-primary/10 rounded-xl text-primary flex-shrink-0">
                     <svg width="32" height="32" viewBox="0 0 32 32" fill="currentColor">
                       <path d="M16 0C7.16 0 0 7.16 0 16c0 7.08 4.58 13.06 10.94 15.18.8.14 1.1-.34 1.1-.76 0-.38-.02-1.64-.02-2.98-4.02.74-5.06-0.98-5.38-1.88-.18-.46-.96-1.88-1.64-2.26-.56-.3-1.36-1.04-.02-1.06 1.26-.02 2.16 1.16 2.46 1.64 1.44 2.42 3.74 1.74 4.66 1.32.14-1.04.56-1.74 1.02-2.14-3.56-.4-7.28-1.78-7.28-7.9 0-1.74.62-3.18 1.64-4.3-.16-.4-.72-2.04.16-4.24 0 0 1.34-.42 4.4 1.64 1.28-.36 2.64-.54 4-.54 1.36 0 2.72.18 4 .54 3.06-2.08 4.4-1.64 4.4-1.64.88 2.2.32 3.84.16 4.24 1.02 1.12 1.64 2.54 1.64 4.3 0 6.14-3.74 7.5-7.3 7.9.58.5 1.08 1.46 1.08 2.96 0 2.14-.02 3.86-.02 4.4 0 .42.3.92 1.1.76A16.026 16.026 0 0032 16c0-8.84-7.16-16-16-16z"/>
                     </svg>
                   </div>
-                  <div className={styles.socialInfo}>
-                    <div className={styles.socialLabel}>GitHub</div>
-                    <div className={styles.socialHandle}>@yourusername</div>
+                  <div className="flex-1">
+                    <div className="text-sm text-white/60 mb-1">GitHub</div>
+                    <div className="text-base text-white font-semibold">@yourusername</div>
                   </div>
-                  <div className={styles.socialArrow}>→</div>
+                  <div className="text-primary text-2xl opacity-0 -translate-x-[10px] transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0">→</div>
                 </a>
                 
-                <a href="https://linkedin.com/in/yourusername" target="_blank" rel="noopener noreferrer" className={styles.socialCard}>
-                  <div className={styles.socialIcon}>
+                <a href="https://linkedin.com/in/yourusername" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 p-6 bg-primary/5 border border-primary/20 rounded-2xl no-underline transition-all duration-300 relative overflow-hidden hover:translate-x-[5px] hover:bg-primary/10 hover:border-primary/40 before:content-[''] before:absolute before:top-0 before:left-[-100%] before:w-full before:h-full before:bg-gradient-to-r before:from-transparent before:via-primary/10 before:to-transparent before:transition-all before:duration-500 hover:before:left-[100%]">
+                  <div className="w-12 h-12 flex items-center justify-center bg-primary/10 rounded-xl text-primary flex-shrink-0">
                     <svg width="32" height="32" viewBox="0 0 32 32" fill="currentColor">
                       <path d="M7.5 5C6.11929 5 5 6.11929 5 7.5C5 8.88071 6.11929 10 7.5 10C8.88071 10 10 8.88071 10 7.5C10 6.11929 8.88071 5 7.5 5Z"/>
                       <path d="M5 12C5 11.4477 5.44772 11 6 11H9C9.55228 11 10 11.4477 10 12V26C10 26.5523 9.55228 27 9 27H6C5.44772 27 5 26.5523 5 26V12Z"/>
                       <path d="M13 12C13 11.4477 13.4477 11 14 11H17C17.5523 11 18 11.4477 18 12V13.5C19.0767 12.0767 20.7234 11 23 11C26.3137 11 29 13.6863 29 17V26C29 26.5523 28.5523 27 28 27H25C24.4477 27 24 26.5523 24 26V17C24 15.8954 23.1046 15 22 15C20.8954 15 20 15.8954 20 17V26C20 26.5523 19.5523 27 19 27H14C13.4477 27 13 26.5523 13 26V12Z"/>
                     </svg>
                   </div>
-                  <div className={styles.socialInfo}>
-                    <div className={styles.socialLabel}>LinkedIn</div>
-                    <div className={styles.socialHandle}>@yourusername</div>
+                  <div className="flex-1">
+                    <div className="text-sm text-white/60 mb-1">LinkedIn</div>
+                    <div className="text-base text-white font-semibold">@yourusername</div>
                   </div>
-                  <div className={styles.socialArrow}>→</div>
+                  <div className="text-primary text-2xl opacity-0 -translate-x-[10px] transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0">→</div>
                 </a>
 
-                <a href="https://twitter.com/yourusername" target="_blank" rel="noopener noreferrer" className={styles.socialCard}>
-                  <div className={styles.socialIcon}>
+                <a href="https://twitter.com/yourusername" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 p-6 bg-primary/5 border border-primary/20 rounded-2xl no-underline transition-all duration-300 relative overflow-hidden hover:translate-x-[5px] hover:bg-primary/10 hover:border-primary/40 before:content-[''] before:absolute before:top-0 before:left-[-100%] before:w-full before:h-full before:bg-gradient-to-r before:from-transparent before:via-primary/10 before:to-transparent before:transition-all before:duration-500 hover:before:left-[100%]">
+                  <div className="w-12 h-12 flex items-center justify-center bg-primary/10 rounded-xl text-primary flex-shrink-0">
                     <svg width="32" height="32" viewBox="0 0 32 32" fill="currentColor">
                       <path d="M24 4H27.6L18.7 14.3L29 28H21L14.4 19.2L6.9 28H3.3L12.8 17L3 4H11.3L17.3 12.1L24 4ZM22.8 25.6H25L10.3 6.8H8.4L22.8 25.6Z"/>
                     </svg>
                   </div>
-                  <div className={styles.socialInfo}>
-                    <div className={styles.socialLabel}>Twitter</div>
-                    <div className={styles.socialHandle}>@yourusername</div>
+                  <div className="flex-1">
+                    <div className="text-sm text-white/60 mb-1">Twitter</div>
+                    <div className="text-base text-white font-semibold">@yourusername</div>
                   </div>
-                  <div className={styles.socialArrow}>→</div>
+                  <div className="text-primary text-2xl opacity-0 -translate-x-[10px] transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0">→</div>
                 </a>
 
-                <a href="https://dribbble.com/yourusername" target="_blank" rel="noopener noreferrer" className={styles.socialCard}>
-                  <div className={styles.socialIcon}>
+                <a href="https://dribbble.com/yourusername" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 p-6 bg-primary/5 border border-primary/20 rounded-2xl no-underline transition-all duration-300 relative overflow-hidden hover:translate-x-[5px] hover:bg-primary/10 hover:border-primary/40 before:content-[''] before:absolute before:top-0 before:left-[-100%] before:w-full before:h-full before:bg-gradient-to-r before:from-transparent before:via-primary/10 before:to-transparent before:transition-all before:duration-500 hover:before:left-[100%]">
+                  <div className="w-12 h-12 flex items-center justify-center bg-primary/10 rounded-xl text-primary flex-shrink-0">
                     <svg width="32" height="32" viewBox="0 0 32 32" fill="currentColor">
                       <path d="M16 0C7.164 0 0 7.164 0 16s7.164 16 16 16 16-7.164 16-16S24.836 0 16 0zm11.5 7.49c1.93 2.362 3.105 5.364 3.138 8.637-3.802-.812-7.27-.867-10.063-.367-.334-.796-.656-1.577-.988-2.344 3.057-1.265 5.44-3.045 6.913-5.926zM16 2.625c3.802 0 7.273 1.577 9.746 4.102-1.265 2.537-3.45 4.113-6.227 5.212-1.907-3.52-4.095-6.495-6.438-8.69 1.577-.395 3.22-.624 4.919-.624zM9.602 4.102c2.31 2.13 4.463 5.015 6.352 8.445-3.552 1.002-7.77 1.443-12.427 1.295.623-4.41 3.23-8.096 6.075-9.74zm-7.006 11.9c5.136.156 9.684-.31 13.42-1.442.31.703.608 1.42.894 2.15-4.695 1.443-8.68 4.413-11.394 8.47-1.967-2.298-3.185-5.274-3.185-8.563 0-.214.014-.41.025-.615zm13.404.993c.342.796.67 1.605.982 2.426-4.287 1.967-7.54 5.34-9.318 9.412-2.186-2.298-3.567-5.364-3.567-8.758 0-.21.012-.42.025-.63 4.53.124 8.82-.494 11.878-2.45zM16 29.375c-3.495 0-6.68-1.346-9.074-3.543 1.59-3.683 4.55-6.723 8.407-8.492.31-.146.634-.28.958-.408.78 2.176 1.466 4.52 2.004 7.023.54 2.537.873 5.003.998 7.315-1.06.07-2.13.105-3.294.105zm5.99-1.465c-.124-2.244-.446-4.68-.97-7.165-.51-2.42-1.178-4.708-1.942-6.834 2.42-.394 5.44-.296 8.875.394-.746 6.17-4.013 11.393-5.963 13.605z"/>
                     </svg>
                   </div>
-                  <div className={styles.socialInfo}>
-                    <div className={styles.socialLabel}>Dribbble</div>
-                    <div className={styles.socialHandle}>@yourusername</div>
+                  <div className="flex-1">
+                    <div className="text-sm text-white/60 mb-1">Dribbble</div>
+                    <div className="text-base text-white font-semibold">@yourusername</div>
                   </div>
-                  <div className={styles.socialArrow}>→</div>
+                  <div className="text-primary text-2xl opacity-0 -translate-x-[10px] transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0">→</div>
                 </a>
               </div>
             </div>
@@ -414,20 +503,20 @@ export default function Home() {
         </section>
 
         {/* Footer */}
-        <footer className={styles.footer}>
-          <div className={styles.footerContent}>
-            <div className={styles.footerLeft}>
-              <div className={styles.footerLogo}>YN</div>
-              <p className={styles.footerText}>Building the future, one line at a time.</p>
+        <footer className="py-16 pt-8 border-t border-primary/10 mt-16">
+          <div className="flex justify-between items-center flex-wrap gap-8">
+            <div className="max-w-[300px]">
+              <div className="text-3xl font-black bg-gradient-to-r from-primary to-primary-accent bg-clip-text text-transparent mb-2 font-mono">YN</div>
+              <p className="text-white/60 text-[0.9375rem]">Building the future, one line at a time.</p>
             </div>
-            <div className={styles.footerRight}>
-              <div className={styles.footerLinks}>
-                <a href="#about">About</a>
-                <a href="#skills">Skills</a>
-                <a href="#projects">Projects</a>
-                <a href="#contact">Contact</a>
+            <div className="text-right">
+              <div className="flex gap-8 mb-4">
+                <a href="#about" className="text-white/70 no-underline font-medium transition-colors duration-300 hover:text-primary">About</a>
+                <a href="#skills" className="text-white/70 no-underline font-medium transition-colors duration-300 hover:text-primary">Skills</a>
+                <a href="#projects" className="text-white/70 no-underline font-medium transition-colors duration-300 hover:text-primary">Projects</a>
+                <a href="#contact" className="text-white/70 no-underline font-medium transition-colors duration-300 hover:text-primary">Contact</a>
               </div>
-              <p className={styles.copyright}>© {new Date().getFullYear()} Your Name. Crafted with passion.</p>
+              <p className="text-white/50 text-sm">© {new Date().getFullYear()} Your Name. Crafted with passion.</p>
             </div>
           </div>
         </footer>
