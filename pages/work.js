@@ -2,130 +2,23 @@ import Head from 'next/head'
 import Link from 'next/link'
 import { useState } from 'react'
 import OrbitalMenu from '../components/OrbitalMenu'
+import { projects as allProjects, projectCategories, getGradientClass } from '../data/projects'
 
 export default function Work() {
   const [filter, setFilter] = useState('all')
 
-  const projects = [
-    {
-      id: 1,
-      category: 'Full-Stack Development',
-      title: 'E-Commerce Platform',
-      description: 'A modern e-commerce solution with real-time inventory, advanced analytics, and seamless payment integration. Handles 10K+ daily transactions with 99.9% uptime.',
-      tech: ['React', 'Node.js', 'PostgreSQL', 'Stripe', 'Redis'],
-      image: 'primary',
-      liveUrl: '#',
-      githubUrl: '#',
-      year: '2024'
-    },
-    {
-      id: 2,
-      category: 'AI/ML Integration',
-      title: 'AI Task Manager',
-      description: 'Intelligent task management powered by natural language processing. Smart scheduling, priority detection, and automated workflows increase productivity by 40%.',
-      tech: ['Next.js', 'Python', 'OpenAI', 'TensorFlow'],
-      image: 'accent',
-      liveUrl: '#',
-      githubUrl: '#',
-      year: '2024'
-    },
-    {
-      id: 3,
-      category: 'Real-Time Collaboration',
-      title: 'Code Editor Pro',
-      description: 'Browser-based collaborative code editor with real-time sync, syntax highlighting, and live preview. Supports 50+ programming languages with zero latency.',
-      tech: ['React', 'WebSockets', 'Monaco', 'Docker'],
-      image: 'pink',
-      liveUrl: '#',
-      githubUrl: '#',
-      year: '2024'
-    },
-    {
-      id: 4,
-      category: 'Mobile Development',
-      title: 'Fitness Tracking App',
-      description: 'Cross-platform mobile app for fitness enthusiasts. Track workouts, calories, and progress with beautiful visualizations and social features.',
-      tech: ['React Native', 'Firebase', 'Redux', 'HealthKit'],
-      image: 'primary',
-      liveUrl: '#',
-      githubUrl: '#',
-      year: '2023'
-    },
-    {
-      id: 5,
-      category: 'Web3 & Blockchain',
-      title: 'NFT Marketplace',
-      description: 'Decentralized marketplace for digital art and collectibles. Built on Ethereum with IPFS storage and smart contract integration.',
-      tech: ['React', 'Web3.js', 'Solidity', 'IPFS'],
-      image: 'accent',
-      liveUrl: '#',
-      githubUrl: '#',
-      year: '2023'
-    },
-    {
-      id: 6,
-      category: 'Data Visualization',
-      title: 'Analytics Dashboard',
-      description: 'Real-time business intelligence dashboard with interactive charts, predictive analytics, and customizable reports for enterprise clients.',
-      tech: ['Vue.js', 'D3.js', 'Python', 'FastAPI'],
-      image: 'pink',
-      liveUrl: '#',
-      githubUrl: '#',
-      year: '2023'
-    },
-    {
-      id: 7,
-      category: 'DevOps & Cloud',
-      title: 'CI/CD Pipeline Manager',
-      description: 'Automated deployment pipeline with monitoring, rollback capabilities, and multi-cloud support. Reduces deployment time by 70%.',
-      tech: ['Docker', 'Kubernetes', 'AWS', 'Jenkins'],
-      image: 'primary',
-      liveUrl: '#',
-      githubUrl: '#',
-      year: '2023'
-    },
-    {
-      id: 8,
-      category: 'API Development',
-      title: 'Microservices Platform',
-      description: 'Scalable microservices architecture with API gateway, service discovery, and distributed tracing. Handles millions of requests daily.',
-      tech: ['Node.js', 'GraphQL', 'RabbitMQ', 'MongoDB'],
-      image: 'accent',
-      liveUrl: '#',
-      githubUrl: '#',
-      year: '2022'
-    },
-    {
-      id: 9,
-      category: 'Machine Learning',
-      title: 'Image Recognition System',
-      description: 'Advanced computer vision system for object detection and classification. Achieves 95%+ accuracy with real-time processing capabilities.',
-      tech: ['Python', 'TensorFlow', 'OpenCV', 'Flask'],
-      image: 'pink',
-      liveUrl: '#',
-      githubUrl: '#',
-      year: '2022'
-    }
-  ]
+  const projects = allProjects
 
-  const categories = ['all', 'Full-Stack Development', 'AI/ML Integration', 'Real-Time Collaboration', 'Mobile Development', 'Web3 & Blockchain', 'Data Visualization', 'DevOps & Cloud', 'API Development', 'Machine Learning']
-
-  const filteredProjects = filter === 'all' 
-    ? projects 
+  const filteredProjects = filter === 'all'
+    ? projects
     : projects.filter(p => p.category === filter)
 
-  const getGradientClass = (image) => {
-    switch(image) {
-      case 'primary':
-        return 'from-primary/40 to-primary-dark/60'
-      case 'accent':
-        return 'from-primary-accent/40 to-[#009688]/60'
-      case 'pink':
-        return 'from-primary-light/40 to-[#FF1493]/60'
-      default:
-        return 'from-primary/40 to-primary-dark/60'
-    }
-  }
+  const stats = [
+    { value: projects.length, label: 'Projects' },
+    { value: new Set(projects.flatMap(p => p.tech)).size, label: 'Technologies' },
+    { value: new Set(projects.flatMap(p => p.platforms)).size, label: 'Platforms Shipped' },
+    { value: projectCategories.length - 1, label: 'Domains' },
+  ]
 
   return (
     <>
@@ -168,14 +61,14 @@ export default function Work() {
             All Work
           </h1>
           <p className="text-xl text-white/60 max-w-[700px]">
-            A comprehensive collection of projects showcasing expertise across various technologies and domains.
+            Production mobile apps, native macOS tools and the backends behind them — client work and personal builds.
           </p>
         </div>
 
         {/* Filter Tabs */}
         <div className="mb-12 overflow-x-auto">
           <div className="flex gap-3 min-w-max pb-4">
-            {categories.map((cat) => (
+            {projectCategories.map((cat) => (
               <button
                 key={cat}
                 onClick={() => setFilter(cat)}
@@ -201,38 +94,44 @@ export default function Work() {
             >
               {/* Project Image */}
               <div className="relative h-48 overflow-hidden">
-                <div className={`w-full h-full bg-gradient-to-br ${getGradientClass(project.image)} transition-transform duration-500 group-hover:scale-110`}></div>
-                <div className="absolute top-4 right-4 px-3 py-1 bg-dark/80 backdrop-blur-sm rounded-full text-xs text-primary font-semibold">
-                  {project.year}
-                </div>
-                <div className="absolute inset-0 bg-dark/0 group-hover:bg-dark/70 transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
-                  <div className="flex gap-4">
-                    <a href={project.liveUrl} className="w-12 h-12 bg-primary rounded-full flex items-center justify-center hover:scale-110 transition-transform">
-                      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                        <path d="M7 10H17M17 10L13 6M17 10L13 14" stroke="white" strokeWidth="2" strokeLinecap="round"/>
-                      </svg>
-                    </a>
-                    <a href={project.githubUrl} className="w-12 h-12 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center hover:scale-110 transition-transform">
-                      <svg width="20" height="20" viewBox="0 0 20 20" fill="white">
-                        <path d="M10 0C4.475 0 0 4.475 0 10c0 4.425 2.8625 8.1625 6.8375 9.4875.5.0875.6875-.2125.6875-.475 0-.2375-.0125-1.025-.0125-1.8625-2.5125.4625-3.1625-.6125-3.3625-1.175-.1125-.2875-.6-1.175-1.025-1.4125-.35-.1875-.85-.65-.0125-.6625.7875-.0125 1.35.725 1.5375 1.025.9 1.5125 2.3375 1.0875 2.9125.825.0875-.65.35-1.0875.6375-1.3375-2.225-.25-4.55-1.1125-4.55-4.9375 0-1.0875.3875-1.9875 1.025-2.6875-.1-.25-.45-1.275.1-2.65 0 0 .8375-.2625 2.75 1.025.8-.225 1.65-.3375 2.5-.3375.85 0 1.7.1125 2.5.3375 1.9125-1.3 2.75-1.025 2.75-1.025.55 1.375.2 2.4.1 2.65.6375.7 1.025 1.5875 1.025 2.6875 0 3.8375-2.3375 4.6875-4.5625 4.9375.3625.3125.675.9125.675 1.85 0 1.3375-.0125 2.4125-.0125 2.75 0 .2625.1875.575.6875.475C17.1375 18.1625 20 14.4125 20 10c0-5.525-4.475-10-10-10z"/>
-                      </svg>
-                    </a>
+                <div className={`w-full h-full bg-gradient-to-br ${getGradientClass(project.gradient)} transition-transform duration-500 group-hover:scale-110`}></div>
+                {(project.status || project.year) && (
+                  <div className="absolute top-4 right-4 px-3 py-1 bg-dark/80 backdrop-blur-sm rounded-full text-xs text-primary font-semibold">
+                    {project.status || project.year}
                   </div>
+                )}
+                {(project.featured || project.personal) && (
+                  <div className="absolute top-4 left-4 px-3 py-1 bg-primary/90 backdrop-blur-sm rounded-full text-xs text-white font-semibold">
+                    {project.featured ? 'Featured' : 'Personal'}
+                  </div>
+                )}
+                <div className="absolute inset-x-0 bottom-0 p-4 flex flex-wrap gap-2 bg-gradient-to-t from-dark/80 to-transparent">
+                  {project.platforms.map((platform) => (
+                    <span
+                      key={platform}
+                      className="px-2.5 py-1 bg-dark/70 backdrop-blur-sm border border-white/10 rounded-md text-[0.6875rem] text-white/80 font-medium"
+                    >
+                      {platform}
+                    </span>
+                  ))}
                 </div>
               </div>
 
               {/* Project Content */}
-              <div className="p-6">
+              <div className="p-6 flex flex-col h-[calc(100%-12rem)]">
                 <div className="text-xs text-primary uppercase tracking-widest font-semibold mb-2">
                   {project.category}
                 </div>
-                <h3 className="text-xl font-bold text-white mb-3 group-hover:text-primary transition-colors">
+                <h3 className="text-xl font-bold text-white mb-2 group-hover:text-primary transition-colors">
                   {project.title}
                 </h3>
-                <p className="text-sm text-white/60 mb-4 line-clamp-3">
+                <p className="text-sm text-white/70 mb-2 font-medium">
+                  {project.summary}
+                </p>
+                <p className="text-sm text-white/50 mb-4 leading-relaxed">
                   {project.description}
                 </p>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-2 mt-auto">
                   {project.tech.map((tech, i) => (
                     <span
                       key={i}
@@ -242,6 +141,18 @@ export default function Work() {
                     </span>
                   ))}
                 </div>
+                <div className="mt-4 flex gap-4">
+                  {project.liveUrl && (
+                    <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="text-sm text-primary font-semibold hover:text-primary-accent transition-colors">
+                      Live →
+                    </a>
+                  )}
+                  {project.githubUrl && (
+                    <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="text-sm text-primary font-semibold hover:text-primary-accent transition-colors">
+                      Source →
+                    </a>
+                  )}
+                </div>
               </div>
             </div>
           ))}
@@ -249,22 +160,12 @@ export default function Work() {
 
         {/* Stats Section */}
         <div className="mt-20 grid md:grid-cols-4 gap-6">
-          <div className="text-center p-6 bg-primary/5 border border-primary/20 rounded-xl">
-            <div className="text-4xl font-bold text-primary mb-2">{projects.length}+</div>
-            <div className="text-sm text-white/60">Total Projects</div>
-          </div>
-          <div className="text-center p-6 bg-primary/5 border border-primary/20 rounded-xl">
-            <div className="text-4xl font-bold text-primary mb-2">15+</div>
-            <div className="text-sm text-white/60">Technologies</div>
-          </div>
-          <div className="text-center p-6 bg-primary/5 border border-primary/20 rounded-xl">
-            <div className="text-4xl font-bold text-primary mb-2">5+</div>
-            <div className="text-sm text-white/60">Years Experience</div>
-          </div>
-          <div className="text-center p-6 bg-primary/5 border border-primary/20 rounded-xl">
-            <div className="text-4xl font-bold text-primary mb-2">100%</div>
-            <div className="text-sm text-white/60">Client Satisfaction</div>
-          </div>
+          {stats.map((stat) => (
+            <div key={stat.label} className="text-center p-6 bg-primary/5 border border-primary/20 rounded-xl">
+              <div className="text-4xl font-bold text-primary mb-2">{stat.value}</div>
+              <div className="text-sm text-white/60">{stat.label}</div>
+            </div>
+          ))}
         </div>
 
         {/* CTA Section */}

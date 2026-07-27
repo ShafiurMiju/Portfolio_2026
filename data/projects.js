@@ -1,0 +1,318 @@
+// Single source of truth for project content.
+// The homepage renders `featuredProjects`; /work renders everything.
+// Professional projects come from the CV; entries marked `personal: true`
+// are self-directed builds.
+
+export const projects = [
+  {
+    id: 'dcn-platform',
+    title: 'Document Compliance Network',
+    category: 'Enterprise Platform',
+    summary: 'Long-running .NET compliance platform — the flagship product.',
+    description:
+      'The web platform behind DCN: organizations manage compliance documents, assignments and review workflows end to end. Built on ASP.NET with Radzen components over MSSQL, and maintained continuously as the product grows.',
+    highlights: [
+      'ASP.NET back end over MSSQL with a Radzen component layer',
+      'Document assignment, review and status workflows for whole organizations',
+      'Shares its data model with the DCN mobile app',
+    ],
+    tech: ['.NET', 'C#', 'Radzen', 'MSSQL'],
+    platforms: ['Web'],
+    status: 'Long-running',
+    gradient: 'primary',
+    featured: true,
+    liveUrl: '',
+    githubUrl: '',
+  },
+  {
+    id: 'optimalmd-medical-ai',
+    title: 'OptimalMD Medical AI',
+    category: 'AI & ML',
+    summary: 'Medical AI assistant running on self-hosted LLM inference.',
+    description:
+      'An AI layer for the OptimalMD platform. A Python/FastAPI service handles inference through Ollama so patient data never leaves the infrastructure, with a Svelte front end and an Express service tying it into the wider product.',
+    highlights: [
+      'Self-hosted LLM inference via Ollama — no third-party data exposure',
+      'FastAPI inference service with a Svelte client',
+      'Express integration layer bridging the existing platform',
+    ],
+    tech: ['Python', 'FastAPI', 'Ollama', 'Svelte', 'Express.js'],
+    platforms: ['Web', 'API'],
+    gradient: 'accent',
+    featured: true,
+    liveUrl: '',
+    githubUrl: '',
+  },
+  {
+    id: 'ndfnd-medical-ai',
+    title: 'NDFND Medical AI Support',
+    category: 'AI & ML',
+    summary: 'LLM-backed medical support assistant.',
+    description:
+      'A medical support assistant built on the same self-hosted stack — FastAPI and Ollama for inference, Svelte for the interface, Express for platform integration.',
+    highlights: [
+      'Ollama-backed inference behind a FastAPI service',
+      'Svelte front end with an Express integration layer',
+    ],
+    tech: ['Python', 'FastAPI', 'Ollama', 'Svelte', 'Express.js'],
+    platforms: ['Web', 'API'],
+    gradient: 'pink',
+    featured: true,
+    liveUrl: '',
+    githubUrl: '',
+  },
+  {
+    id: 'omd-patient-portal',
+    title: 'OMD Patient Portal',
+    category: 'Web Portal',
+    summary: 'Patient-facing portal for the OptimalMD membership platform.',
+    description:
+      'The web portal patients use to manage their OptimalMD membership — plans, profile, dependants and billing — built as a MERN application with a Tailwind interface.',
+    highlights: [
+      'Express + MongoDB API with a React client',
+      'Membership, dependant and billing management',
+      'Shares its domain with the OMD mobile app',
+    ],
+    tech: ['React', 'Express.js', 'MongoDB', 'Tailwind CSS'],
+    platforms: ['Web'],
+    gradient: 'primary',
+    featured: true,
+    liveUrl: '',
+    githubUrl: '',
+  },
+  {
+    id: 'nupath',
+    title: 'NuPath AI',
+    category: 'AI & ML',
+    summary: 'Voice-first wellbeing companion with a realtime AI coach.',
+    description:
+      'A health companion built on Expo. A realtime voice coach runs over LiveKit with ElevenLabs speech, biometric data streams in from HealthKit and Health Connect, and a Node service turns those signals into daily guidance using OpenAI and Gemini. The codebase is brand-aware, shipping as several separate apps from one source.',
+    highlights: [
+      'Realtime voice sessions over LiveKit with ElevenLabs speech',
+      'HealthKit / Health Connect ingestion with calendar correlation',
+      'BullMQ + Redis job pipeline feeding AI insight generation',
+      'Multi-brand build system — one codebase, several store listings',
+    ],
+    tech: ['Expo', 'React Native', 'TypeScript', 'LiveKit', 'ElevenLabs', 'OpenAI', 'Gemini', 'Node.js', 'MongoDB', 'BullMQ'],
+    platforms: ['iOS', 'Android'],
+    year: '2025 — 2026',
+    gradient: 'accent',
+    featured: true,
+    liveUrl: '',
+    githubUrl: '',
+  },
+  {
+    id: 'health-lives-here',
+    title: 'Health Lives Here',
+    category: 'Mobile App',
+    summary: 'NFL Alumni Health app — a branded build of the NuPath platform.',
+    description:
+      'The NFL Alumni Health app, shipped from the NuPath codebase with its own identity, theme, AI coach persona and Firebase project. Adds an App Clip so members can start onboarding straight from a link, backed by universal links on its own domain.',
+    highlights: [
+      'Dedicated brand config — theme, icons, AI persona, Firebase project',
+      'App Clip entry point with a shared app group for handoff',
+      'Universal links and Android App Links on nfl.nupathapp.com',
+      'Google and Apple sign-in with brand-scoped credentials',
+    ],
+    tech: ['Expo', 'React Native', 'TypeScript', 'App Clips', 'Firebase', 'EAS'],
+    platforms: ['iOS', 'Android'],
+    year: '2025 — 2026',
+    gradient: 'pink',
+    featured: false,
+    liveUrl: '',
+    githubUrl: '',
+  },
+  {
+    id: 'omd-mobile',
+    title: 'OMD Patient Portal Mobile App',
+    category: 'Mobile App',
+    summary: 'Telehealth membership app — physician access, pharmacy, billing.',
+    description:
+      'The React Native companion to the OMD portal, covering plan selection and registration, dependant management, physician access, pharmacy, billing, support ticketing and an in-app AI assistant. Shipped across roughly 590 commits and re-skinned for a second brand off the same codebase.',
+    highlights: [
+      'Plan selection, billing and dependant flows end to end',
+      'In-app AI assistant plus rich HTML and video content rendering',
+      'OneSignal + Firebase messaging with version-gated updates',
+      'White-labeled into a second branded app',
+    ],
+    tech: ['React Native', 'Redux Toolkit', 'Redux Persist', 'Firebase', 'OneSignal'],
+    platforms: ['Android', 'iOS'],
+    year: '2025 — 2026',
+    gradient: 'accent',
+    featured: false,
+    liveUrl: '',
+    githubUrl: '',
+  },
+  {
+    id: 'dcn-mobile',
+    title: 'DCN Mobile',
+    category: 'Mobile App',
+    summary: 'Compliance documents in the field, with in-app PDF annotation.',
+    description:
+      'The mobile arm of the Document Compliance Network. Users authenticate with a three-factor flow, annotate PDF forms inside the app with the Apryse engine, and submit flattened documents for review — with offline caching so a dropped connection never blocks a signature.',
+    highlights: [
+      'PDF viewing, annotation and field validation via PDFTron / Apryse',
+      'User-scoped offline PDF cache with header validation and auto-cleanup',
+      'Color-coded status tracking with grouped push notifications',
+      'RTK Query data layer with a 30+ token dark mode system',
+    ],
+    tech: ['React Native', 'TypeScript', 'Redux Toolkit', 'RTK Query', 'PDFTron', 'Notifee'],
+    platforms: ['Android', 'iOS'],
+    year: '2025 — 2026',
+    gradient: 'pink',
+    featured: false,
+    liveUrl: '',
+    githubUrl: '',
+  },
+  {
+    id: 'arla',
+    title: 'ARLA Mobile App',
+    category: 'Mobile App',
+    summary: 'Field-force app themed at runtime from the backend.',
+    description:
+      'An in-progress field operations app for CMs, SRs and distributors. Brand colors and logo are fetched from the backend and applied at runtime, so one binary serves multiple brands. Includes leave management, camera capture and offline-tolerant auth.',
+    highlights: [
+      'Runtime theming — palette and logo driven by API config',
+      'Leave request workflow against a versioned REST API',
+      'Vision Camera capture with client-side image resizing',
+      'Redux Persist + Keychain sessions, dev/prod environment split',
+    ],
+    tech: ['React Native', 'TypeScript', 'Redux Toolkit', 'Redux Persist', 'Vision Camera'],
+    platforms: ['Android', 'iOS'],
+    year: '2026',
+    status: 'Ongoing',
+    gradient: 'primary',
+    featured: false,
+    liveUrl: '',
+    githubUrl: '',
+  },
+  {
+    id: 'trust-patrick',
+    title: 'Trust Patrick — Home Owner',
+    category: 'Mobile App',
+    summary: 'Homeowner services app with frictionless OTP onboarding.',
+    description:
+      'A homeowner-facing service app with address autocomplete and SMS-retriever OTP sign-in that fills the code without leaving the keyboard, over a Redux Toolkit data layer.',
+    highlights: [
+      'Android SMS Retriever OTP auto-fill with a manual fallback',
+      'Google Places autocomplete for property addresses',
+      'Redux Toolkit state with typed navigation stacks',
+    ],
+    tech: ['React Native', 'TypeScript', 'Redux Toolkit', 'Google Places'],
+    platforms: ['Android', 'iOS'],
+    year: '2025 — 2026',
+    gradient: 'accent',
+    featured: false,
+    liveUrl: '',
+    githubUrl: '',
+  },
+  {
+    id: 'monkeymans-portal',
+    title: 'MonkeyMans Employee Portal',
+    category: 'Web Portal',
+    summary: 'Employee management portal on the MERN stack.',
+    description:
+      'A full-stack employee portal — records, roles and day-to-day staff operations — built with an Express and MongoDB back end behind a React and Tailwind interface.',
+    highlights: [
+      'Express + MongoDB API with role-aware access',
+      'React and Tailwind interface for staff operations',
+    ],
+    tech: ['React', 'Express.js', 'MongoDB', 'Tailwind CSS'],
+    platforms: ['Web'],
+    gradient: 'pink',
+    featured: false,
+    liveUrl: '',
+    githubUrl: '',
+  },
+  {
+    id: 'octopi-employee-portal',
+    title: 'Octopi Digital Employee Portal',
+    category: 'Web Portal',
+    summary: 'Internal portal for the Octopi Digital team.',
+    description:
+      'The in-house portal used to run the agency day to day, built full-stack on Express and MongoDB with a React and Tailwind front end.',
+    highlights: [
+      'Full-stack build — API through to interface',
+      'Express + MongoDB back end, React and Tailwind client',
+    ],
+    tech: ['React', 'Express.js', 'MongoDB', 'Tailwind CSS'],
+    platforms: ['Web'],
+    gradient: 'primary',
+    featured: false,
+    liveUrl: '',
+    githubUrl: '',
+  },
+  {
+    id: 'octopi-website',
+    title: 'Octopi Digital Website',
+    category: 'Website',
+    summary: 'Company marketing site.',
+    description:
+      'The public Octopi Digital website — a React and Tailwind front end built for the agency.',
+    highlights: ['React and Tailwind front end', 'Responsive marketing layout'],
+    tech: ['React', 'Tailwind CSS'],
+    platforms: ['Web'],
+    gradient: 'accent',
+    featured: false,
+    liveUrl: 'https://www.octopi-digital.com',
+    githubUrl: '',
+  },
+  {
+    id: 'copaste',
+    title: 'CoPaste',
+    category: 'Personal Project',
+    summary: 'Encrypted clipboard sync between Mac and Android.',
+    description:
+      'A three-part personal product: a SwiftUI menu-bar app for macOS, a Jetpack Compose Android companion, and a Next.js site. Devices find each other on the LAN over Bonjour, pair once with a six-digit code, then exchange AES-GCM encrypted clipboard payloads both ways — no cloud in the middle.',
+    highlights: [
+      'Bonjour (_copaste._tcp) discovery with one-time 6-digit pairing',
+      'AES-GCM encrypted bidirectional transport, entirely peer-to-peer',
+      'SwiftUI menu-bar client plus a Kotlin / Compose companion',
+    ],
+    tech: ['Swift', 'SwiftUI', 'Kotlin', 'Jetpack Compose', 'Bonjour', 'Next.js'],
+    platforms: ['macOS', 'Android', 'Web'],
+    year: '2026',
+    personal: true,
+    gradient: 'pink',
+    featured: false,
+    liveUrl: '',
+    githubUrl: '',
+  },
+  {
+    id: 'flowdraft',
+    title: 'FlowDraft',
+    category: 'Personal Project',
+    summary: 'Live subtitles that translate any app’s audio into Bangla.',
+    description:
+      'A native macOS utility that captures system audio per application through ScreenCaptureKit, transcribes it with Groq Whisper, translates it to Bangla, and paints source-labeled subtitles on a borderless, click-through, always-on-top panel.',
+    highlights: [
+      'One capture engine per app, merged into a single tagged stream',
+      '16 kHz mono WAV chunking with a silence gate to cut API spend',
+      'Swift 6 strict concurrency with a SwiftUI overlay',
+    ],
+    tech: ['Swift 6', 'SwiftUI', 'ScreenCaptureKit', 'Groq Whisper'],
+    platforms: ['macOS'],
+    year: '2026',
+    personal: true,
+    gradient: 'primary',
+    featured: false,
+    liveUrl: '',
+    githubUrl: '',
+  },
+]
+
+export const featuredProjects = projects.filter((project) => project.featured)
+
+export const projectCategories = [
+  'all',
+  ...Array.from(new Set(projects.map((project) => project.category))),
+]
+
+export const gradientClasses = {
+  primary: 'from-primary/40 to-primary-dark/60',
+  accent: 'from-primary-accent/40 to-[#009688]/60',
+  pink: 'from-primary-light/40 to-[#FF1493]/60',
+}
+
+export const getGradientClass = (gradient) =>
+  gradientClasses[gradient] || gradientClasses.primary

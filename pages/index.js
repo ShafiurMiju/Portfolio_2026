@@ -2,6 +2,8 @@ import Head from 'next/head'
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import OrbitalMenu from '../components/OrbitalMenu'
+import { projects, featuredProjects, getGradientClass } from '../data/projects'
+import { skillGroups } from '../data/skills'
 
 export default function Home() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
@@ -63,8 +65,8 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Shafiur Miju - Software Engineer</title>
-        <meta name="description" content="Software Engineer Portfolio" />
+        <title>Shafiur Miju - Full-Stack Developer</title>
+        <meta name="description" content="Full-stack developer — ASP.NET, Node.js and React across web and mobile" />
         <link rel="icon" href="/favicon.ico" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
@@ -147,7 +149,7 @@ export default function Home() {
               </span>
             </h1>
             <h2 className="text-[clamp(1.5rem,3vw,2.5rem)] text-white/80 mb-6 font-medium [animation:fadeInUp_0.8s_ease_0.4s_both]">
-              <span className="font-mono">Software Engineer</span>
+              <span className="font-mono">Full-Stack Developer</span>
               <span className="animate-blink text-primary">|</span>
             </h2>
             <p className="text-[clamp(1rem,2vw,1.25rem)] text-white/60 max-w-[600px] leading-[1.7] mb-10 [animation:fadeInUp_0.8s_ease_0.6s_both]">
@@ -190,18 +192,16 @@ export default function Home() {
                 or mentoring aspiring developers.
               </p>
               <div className="grid grid-cols-3 gap-8 mt-12">
-                <div className="text-center p-6 bg-primary/5 border border-primary/20 rounded-xl transition-all duration-300 hover:translate-y-[-5px] hover:bg-primary/10 hover:border-primary/40">
-                  <div className="text-4xl font-bold text-primary mb-2 font-mono">5+</div>
-                  <div className="text-sm text-white/60">Years Experience</div>
-                </div>
-                <div className="text-center p-6 bg-primary/5 border border-primary/20 rounded-xl transition-all duration-300 hover:translate-y-[-5px] hover:bg-primary/10 hover:border-primary/40">
-                  <div className="text-4xl font-bold text-primary mb-2 font-mono">50+</div>
-                  <div className="text-sm text-white/60">Projects Completed</div>
-                </div>
-                <div className="text-center p-6 bg-primary/5 border border-primary/20 rounded-xl transition-all duration-300 hover:translate-y-[-5px] hover:bg-primary/10 hover:border-primary/40">
-                  <div className="text-4xl font-bold text-primary mb-2 font-mono">100%</div>
-                  <div className="text-sm text-white/60">Client Satisfaction</div>
-                </div>
+                {[
+                  { value: '3+', label: 'Years Experience' },
+                  { value: projects.length, label: 'Projects Completed' },
+                  { value: new Set(projects.flatMap((p) => p.tech)).size, label: 'Technologies Used' },
+                ].map((stat) => (
+                  <div key={stat.label} className="text-center p-6 bg-primary/5 border border-primary/20 rounded-xl transition-all duration-300 hover:translate-y-[-5px] hover:bg-primary/10 hover:border-primary/40">
+                    <div className="text-4xl font-bold text-primary mb-2 font-mono">{stat.value}</div>
+                    <div className="text-sm text-white/60">{stat.label}</div>
+                  </div>
+                ))}
               </div>
             </div>
             <div className="relative">
@@ -215,11 +215,12 @@ export default function Home() {
                   </div>
                   <pre className="font-mono text-sm leading-[1.6] text-primary m-0">
 {`const developer = {
-  name: "Your Name",
-  passion: "Building",
-  skills: ["React", "Node"],
-  mindset: "Growth",
-  status: "Innovating"
+  name: "Shafiur Rahman",
+  role: "Full-Stack",
+  backend: ["ASP.NET", "Node"],
+  frontend: ["React", "Next.js"],
+  mobile: "React Native",
+  data: ["MSSQL", "Postgres", "Mongo"]
 };`}
                   </pre>
                 </div>
@@ -236,44 +237,40 @@ export default function Home() {
             <div className="flex-1 h-px bg-gradient-to-r from-primary/30 to-transparent"></div>
           </div>
           <div className="max-w-[1200px] mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 mb-16">
-              {[
-                { icon: '⚛️', name: 'React / Next.js', level: 95 },
-                { icon: '📘', name: 'TypeScript', level: 90 },
-                { icon: '🟢', name: 'Node.js', level: 88 },
-                { icon: '🐍', name: 'Python', level: 85 },
-                { icon: '🎨', name: 'UI/UX Design', level: 80 },
-                { icon: '☁️', name: 'AWS / Cloud', level: 82 },
-                { icon: '🗄️', name: 'Databases', level: 87 },
-                { icon: '🐳', name: 'Docker', level: 83 }
-              ].map((skill, index) => (
-                <div key={index} className="flex items-center gap-6 p-6 bg-primary/5 border border-primary/20 rounded-2xl transition-all duration-300 hover:translate-y-[-5px] hover:bg-primary/10 hover:border-primary/40 hover:shadow-[0_10px_30px_rgba(187,134,252,0.2)]">
-                  <div className="text-4xl w-[60px] h-[60px] flex items-center justify-center bg-primary/10 rounded-xl">
-                    {skill.icon}
-                  </div>
-                  <div className="flex-1">
-                    <div className="text-lg font-semibold text-white mb-2">{skill.name}</div>
-                    <div className="h-1.5 bg-primary/10 rounded-[10px] overflow-hidden">
-                      <div 
-                        className="h-full bg-gradient-to-r from-primary to-primary-accent rounded-[10px] animate-progress" 
-                        style={{ width: `${skill.level}%` }}
-                      ></div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {skillGroups.map((group) => (
+                <div
+                  key={group.name}
+                  className="group flex flex-col p-7 bg-primary/[0.04] border border-primary/20 rounded-2xl transition-all duration-300 hover:translate-y-[-6px] hover:bg-primary/[0.08] hover:border-primary/50 hover:shadow-[0_18px_45px_rgba(187,134,252,0.18)]"
+                >
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="text-2xl w-12 h-12 flex items-center justify-center bg-primary/10 border border-primary/20 rounded-xl transition-transform duration-300 group-hover:scale-110">
+                      {group.icon}
                     </div>
+                    <h3 className="text-xl font-semibold text-white m-0">{group.name}</h3>
+                  </div>
+                  <p className="text-sm text-white/50 leading-relaxed mb-5">{group.blurb}</p>
+                  <div className="flex flex-wrap gap-2 mt-auto">
+                    {group.skills.map((skill) => (
+                      <span
+                        key={skill}
+                        className="px-3 py-1.5 bg-primary/10 border border-primary/20 rounded-lg text-white/75 text-[0.8125rem] font-medium transition-all duration-300 hover:bg-primary/20 hover:border-primary/50 hover:text-white"
+                      >
+                        {skill}
+                      </span>
+                    ))}
                   </div>
                 </div>
               ))}
             </div>
-            <div className="p-8 bg-primary/[0.03] border border-primary/10 rounded-[20px]">
-              <h3 className="text-2xl text-white mb-6 font-semibold">Tech Stack</h3>
-              <div className="flex flex-wrap gap-3">
-                {['React', 'Next.js', 'TypeScript', 'Node.js', 'Express', 'Python', 'Django', 
-                  'PostgreSQL', 'MongoDB', 'Redis', 'GraphQL', 'REST', 'Docker', 'Kubernetes',
-                  'AWS', 'Git', 'CI/CD', 'Testing', 'Agile'].map((tech, index) => (
-                  <span key={index} className="px-4 py-2 bg-primary/10 border border-primary/20 rounded-lg text-white/80 text-sm font-medium transition-all duration-300 hover:bg-primary/20 hover:border-primary hover:translate-y-[-2px]">
-                    {tech}
-                  </span>
-                ))}
-              </div>
+            <div className="mt-10 flex flex-wrap items-center justify-center gap-x-3 gap-y-2 text-sm text-white/50">
+              <span className="font-mono text-primary/80">Shipped to</span>
+              {['Web', 'APIs', 'iOS', 'Android', 'macOS'].map((platform, index) => (
+                <span key={platform} className="flex items-center gap-3">
+                  {index > 0 && <span className="text-primary/30">/</span>}
+                  <span className="text-white/70">{platform}</span>
+                </span>
+              ))}
             </div>
           </div>
         </section>
@@ -286,128 +283,94 @@ export default function Home() {
             <div className="flex-1 h-px bg-gradient-to-r from-primary/30 to-transparent"></div>
           </div>
           <div className="grid gap-12">
-            <div className="grid lg:grid-cols-[1fr_1.2fr] gap-8 p-8 bg-primary/[0.03] border border-primary/20 rounded-3xl transition-all duration-[400ms] hover:translate-y-[-10px] hover:border-primary/50 hover:shadow-[0_20px_60px_rgba(187,134,252,0.2)] relative overflow-hidden">
-              <div className="absolute top-4 right-4 text-[4rem] font-black text-primary/10 font-mono leading-none">01</div>
-              <div className="relative aspect-[16/10] rounded-2xl overflow-hidden bg-dark/50">
-                <div className="w-full h-full bg-gradient-to-br from-primary/40 to-primary-dark/60"></div>
-                <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center opacity-0 transition-opacity duration-300 bg-dark/70 backdrop-blur-[10px] hover:opacity-100">
-                  <svg width="60" height="60" viewBox="0 0 60 60" fill="none">
-                    <rect width="60" height="60" rx="12" fill="rgba(255,255,255,0.1)"/>
-                    <path d="M25 30L35 30M35 30L31 26M35 30L31 34" stroke="white" strokeWidth="2" strokeLinecap="round"/>
-                  </svg>
-                </div>
-              </div>
-              <div className="flex flex-col justify-center">
-                <div className="text-sm text-primary uppercase tracking-[0.1em] font-semibold mb-2">Full-Stack Development</div>
-                <h3 className="text-3xl text-white mb-4 font-bold">E-Commerce Platform</h3>
-                <p className="text-base leading-[1.7] text-white/70 mb-6">
-                  A modern e-commerce solution with real-time inventory, advanced analytics, and seamless payment integration. 
-                  Handles 10K+ daily transactions with 99.9% uptime.
-                </p>
-                <div className="flex flex-wrap gap-2 mb-6">
-                  <span className="px-3.5 py-1.5 bg-primary/10 border border-primary/30 rounded-md text-white/80 text-sm font-medium">React</span>
-                  <span className="px-3.5 py-1.5 bg-primary/10 border border-primary/30 rounded-md text-white/80 text-sm font-medium">Node.js</span>
-                  <span className="px-3.5 py-1.5 bg-primary/10 border border-primary/30 rounded-md text-white/80 text-sm font-medium">PostgreSQL</span>
-                  <span className="px-3.5 py-1.5 bg-primary/10 border border-primary/30 rounded-md text-white/80 text-sm font-medium">Stripe</span>
-                </div>
-                <div className="flex gap-6">
-                  <a href="#" className="inline-flex items-center gap-2 text-primary font-semibold no-underline transition-all duration-300 hover:gap-3 hover:text-primary-accent">
-                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                      <path d="M6 3L11 8L6 13" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-                    </svg>
-                    Live Demo
-                  </a>
-                  <a href="#" className="inline-flex items-center gap-2 text-primary font-semibold no-underline transition-all duration-300 hover:gap-3 hover:text-primary-accent">
-                    <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                      <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
-                    </svg>
-                    GitHub
-                  </a>
-                </div>
-              </div>
-            </div>
+            {featuredProjects.map((project, index) => {
+              const flipped = index % 2 === 1
+              return (
+                <div
+                  key={project.id}
+                  className={`group grid gap-8 p-8 bg-primary/[0.03] border border-primary/20 rounded-3xl transition-all duration-[400ms] hover:translate-y-[-10px] hover:border-primary/50 hover:shadow-[0_20px_60px_rgba(187,134,252,0.2)] relative overflow-hidden ${
+                    flipped ? 'lg:grid-cols-[1.2fr_1fr]' : 'lg:grid-cols-[1fr_1.2fr]'
+                  }`}
+                >
+                  <div className="absolute top-4 right-4 text-[4rem] font-black text-primary/10 font-mono leading-none pointer-events-none">
+                    {String(index + 1).padStart(2, '0')}
+                  </div>
 
-            <div className="grid lg:grid-cols-[1.2fr_1fr] gap-8 p-8 bg-primary/[0.03] border border-primary/20 rounded-3xl transition-all duration-[400ms] hover:translate-y-[-10px] hover:border-primary/50 hover:shadow-[0_20px_60px_rgba(187,134,252,0.2)] relative overflow-hidden">
-              <div className="absolute top-4 right-4 text-[4rem] font-black text-primary/10 font-mono leading-none">02</div>
-              <div className="relative aspect-[16/10] rounded-2xl overflow-hidden bg-dark/50 lg:order-2">
-                <div className="w-full h-full bg-gradient-to-br from-primary-accent/40 to-[#009688]/60"></div>
-                <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center opacity-0 transition-opacity duration-300 bg-dark/70 backdrop-blur-[10px] hover:opacity-100">
-                  <svg width="60" height="60" viewBox="0 0 60 60" fill="none">
-                    <rect width="60" height="60" rx="12" fill="rgba(255,255,255,0.1)"/>
-                    <path d="M25 30L35 30M35 30L31 26M35 30L31 34" stroke="white" strokeWidth="2" strokeLinecap="round"/>
-                  </svg>
-                </div>
-              </div>
-              <div className="flex flex-col justify-center">
-                <div className="text-sm text-primary uppercase tracking-[0.1em] font-semibold mb-2">AI/ML Integration</div>
-                <h3 className="text-3xl text-white mb-4 font-bold">AI Task Manager</h3>
-                <p className="text-base leading-[1.7] text-white/70 mb-6">
-                  Intelligent task management powered by natural language processing. Smart scheduling, priority detection, 
-                  and automated workflows increase productivity by 40%.
-                </p>
-                <div className="flex flex-wrap gap-2 mb-6">
-                  <span className="px-3.5 py-1.5 bg-primary/10 border border-primary/30 rounded-md text-white/80 text-sm font-medium">Next.js</span>
-                  <span className="px-3.5 py-1.5 bg-primary/10 border border-primary/30 rounded-md text-white/80 text-sm font-medium">Python</span>
-                  <span className="px-3.5 py-1.5 bg-primary/10 border border-primary/30 rounded-md text-white/80 text-sm font-medium">OpenAI</span>
-                  <span className="px-3.5 py-1.5 bg-primary/10 border border-primary/30 rounded-md text-white/80 text-sm font-medium">TensorFlow</span>
-                </div>
-                <div className="flex gap-6">
-                  <a href="#" className="inline-flex items-center gap-2 text-primary font-semibold no-underline transition-all duration-300 hover:gap-3 hover:text-primary-accent">
-                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                      <path d="M6 3L11 8L6 13" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-                    </svg>
-                    Live Demo
-                  </a>
-                  <a href="#" className="inline-flex items-center gap-2 text-primary font-semibold no-underline transition-all duration-300 hover:gap-3 hover:text-primary-accent">
-                    <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                      <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
-                    </svg>
-                    GitHub
-                  </a>
-                </div>
-              </div>
-            </div>
+                  {/* Visual */}
+                  <div className={`relative aspect-[16/10] rounded-2xl overflow-hidden bg-dark/50 ${flipped ? 'lg:order-2' : ''}`}>
+                    <div className={`w-full h-full bg-gradient-to-br ${getGradientClass(project.gradient)} transition-transform duration-500 group-hover:scale-105`}></div>
+                    <div className="absolute inset-0 flex flex-col justify-end p-6 bg-gradient-to-t from-dark/80 via-dark/10 to-transparent">
+                      {(project.year || project.status) && (
+                        <div className="font-mono text-sm text-white/80 mb-2">
+                          {project.status || project.year}
+                        </div>
+                      )}
+                      <div className="flex flex-wrap gap-2">
+                        {project.platforms.map((platform) => (
+                          <span
+                            key={platform}
+                            className="px-2.5 py-1 bg-dark/70 backdrop-blur-sm border border-white/10 rounded-md text-xs text-white/80 font-medium"
+                          >
+                            {platform}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
 
-            <div className="grid lg:grid-cols-[1fr_1.2fr] gap-8 p-8 bg-primary/[0.03] border border-primary/20 rounded-3xl transition-all duration-[400ms] hover:translate-y-[-10px] hover:border-primary/50 hover:shadow-[0_20px_60px_rgba(187,134,252,0.2)] relative overflow-hidden">
-              <div className="absolute top-4 right-4 text-[4rem] font-black text-primary/10 font-mono leading-none">03</div>
-              <div className="relative aspect-[16/10] rounded-2xl overflow-hidden bg-dark/50">
-                <div className="w-full h-full bg-gradient-to-br from-primary-light/40 to-[#FF1493]/60"></div>
-                <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center opacity-0 transition-opacity duration-300 bg-dark/70 backdrop-blur-[10px] hover:opacity-100">
-                  <svg width="60" height="60" viewBox="0 0 60 60" fill="none">
-                    <rect width="60" height="60" rx="12" fill="rgba(255,255,255,0.1)"/>
-                    <path d="M25 30L35 30M35 30L31 26M35 30L31 34" stroke="white" strokeWidth="2" strokeLinecap="round"/>
-                  </svg>
+                  {/* Details */}
+                  <div className="flex flex-col justify-center">
+                    <div className="text-sm text-primary uppercase tracking-[0.1em] font-semibold mb-2">{project.category}</div>
+                    <h3 className="text-3xl text-white mb-3 font-bold">{project.title}</h3>
+                    <p className="text-base leading-[1.7] text-white/70 mb-5">{project.description}</p>
+
+                    {project.highlights?.length > 0 && (
+                      <ul className="list-none p-0 m-0 mb-6 grid gap-2">
+                        {project.highlights.slice(0, 3).map((highlight) => (
+                          <li key={highlight} className="flex gap-3 text-sm text-white/60 leading-[1.6]">
+                            <span className="text-primary mt-[2px]">▸</span>
+                            <span>{highlight}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+
+                    <div className="flex flex-wrap gap-2 mb-6">
+                      {project.tech.slice(0, 6).map((tech) => (
+                        <span key={tech} className="px-3.5 py-1.5 bg-primary/10 border border-primary/30 rounded-md text-white/80 text-sm font-medium">
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+
+                    <div className="flex gap-6 items-center">
+                      {project.liveUrl && (
+                        <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-primary font-semibold no-underline transition-all duration-300 hover:gap-3 hover:text-primary-accent">
+                          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <path d="M6 3L11 8L6 13" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                          </svg>
+                          Live Demo
+                        </a>
+                      )}
+                      {project.githubUrl && (
+                        <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-primary font-semibold no-underline transition-all duration-300 hover:gap-3 hover:text-primary-accent">
+                          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                            <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+                          </svg>
+                          GitHub
+                        </a>
+                      )}
+                      {!project.liveUrl && !project.githubUrl && (
+                        <span className="inline-flex items-center gap-2 text-sm text-white/40 font-medium">
+                          <span className="w-1.5 h-1.5 rounded-full bg-primary/50"></span>
+                          Private client work — details on request
+                        </span>
+                      )}
+                    </div>
+                  </div>
                 </div>
-              </div>
-              <div className="flex flex-col justify-center">
-                <div className="text-sm text-primary uppercase tracking-[0.1em] font-semibold mb-2">Real-Time Collaboration</div>
-                <h3 className="text-3xl text-white mb-4 font-bold">Code Editor Pro</h3>
-                <p className="text-base leading-[1.7] text-white/70 mb-6">
-                  Browser-based collaborative code editor with real-time sync, syntax highlighting, and live preview. 
-                  Supports 50+ programming languages with zero latency.
-                </p>
-                <div className="flex flex-wrap gap-2 mb-6">
-                  <span className="px-3.5 py-1.5 bg-primary/10 border border-primary/30 rounded-md text-white/80 text-sm font-medium">React</span>
-                  <span className="px-3.5 py-1.5 bg-primary/10 border border-primary/30 rounded-md text-white/80 text-sm font-medium">WebSockets</span>
-                  <span className="px-3.5 py-1.5 bg-primary/10 border border-primary/30 rounded-md text-white/80 text-sm font-medium">Monaco</span>
-                  <span className="px-3.5 py-1.5 bg-primary/10 border border-primary/30 rounded-md text-white/80 text-sm font-medium">Docker</span>
-                </div>
-                <div className="flex gap-6">
-                  <a href="#" className="inline-flex items-center gap-2 text-primary font-semibold no-underline transition-all duration-300 hover:gap-3 hover:text-primary-accent">
-                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                      <path d="M6 3L11 8L6 13" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-                    </svg>
-                    Live Demo
-                  </a>
-                  <a href="#" className="inline-flex items-center gap-2 text-primary font-semibold no-underline transition-all duration-300 hover:gap-3 hover:text-primary-accent">
-                    <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                      <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
-                    </svg>
-                    GitHub
-                  </a>
-                </div>
-              </div>
-            </div>
+              )
+            })}
           </div>
 
           {/* View All Work Button */}
@@ -428,20 +391,32 @@ export default function Home() {
             <h2 className="text-[clamp(2rem,4vw,3rem)] text-white font-bold m-0 whitespace-nowrap">Let's Connect</h2>
             <div className="flex-1 h-px bg-gradient-to-r from-primary/30 to-transparent"></div>
           </div>
-          <div className="grid lg:grid-cols-[1fr_1.5fr] gap-16 max-w-[1200px] mx-auto">
-            <div className="flex flex-col justify-center">
+          <div className="max-w-[760px] mx-auto">
+            <div className="flex flex-col items-center text-center">
               <h3 className="text-4xl text-white mb-6 font-bold leading-[1.2]">Have an exciting project?</h3>
               <p className="text-lg leading-[1.7] text-white/70 mb-8">
-                I'm always interested in hearing about new projects and opportunities. 
-                Whether you have a question or just want to say hi, feel free to reach out!
+                I'm always interested in hearing about new projects and opportunities.
+                Send over the brief on Fiverr and I'll get back to you.
               </p>
-              <a href="mailto:your.email@example.com" className="inline-flex items-center gap-4 px-8 py-5 bg-gradient-to-r from-primary to-primary-dark text-white rounded-xl font-semibold no-underline transition-all duration-300 shadow-[0_10px_30px_rgba(187,134,252,0.3)] self-start hover:translate-y-[-3px] hover:shadow-[0_15px_40px_rgba(187,134,252,0.4)]">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                  <path d="M3 8L10.89 13.26C11.5432 13.6742 12.4568 13.6742 13.11 13.26L21 8M5 19H19C20.1046 19 21 18.1046 21 17V7C21 5.89543 20.1046 5 19 5H5C3.89543 5 3 5.89543 3 7V17C3 18.1046 3.89543 19 5 19Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-                your.email@example.com
-              </a>
+              <div className="flex flex-wrap gap-4 justify-center">
+                <a
+                  href="https://www.fiverr.com/shafiur_miju"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-3 px-8 py-5 bg-[#1dbf73] text-white rounded-xl font-semibold no-underline transition-all duration-300 shadow-[0_10px_30px_rgba(29,191,115,0.3)] hover:bg-[#19a463] hover:translate-y-[-3px] hover:shadow-[0_15px_40px_rgba(29,191,115,0.45)]"
+                >
+                  <span className="text-2xl font-bold leading-none">fi</span>
+                  Hire Me on Fiverr
+                </a>
+                <Link href="/contact" className="inline-flex items-center gap-3 px-8 py-5 bg-white/5 border-2 border-primary/30 text-primary rounded-xl font-semibold no-underline backdrop-blur-[10px] transition-all duration-300 hover:bg-primary/10 hover:border-primary hover:translate-y-[-3px]">
+                  See How I Work
+                </Link>
+              </div>
+              <div className="mt-6 font-mono text-sm text-white/40">fiverr.com/shafiur_miju</div>
             </div>
+
+            {/* Direct email + social profiles — disabled: no personal contact
+                details on this build. Uncomment and fill in real handles to restore.
             <div className="flex flex-col">
               <div className="grid md:grid-cols-2 gap-4">
                 <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 p-6 bg-primary/5 border border-primary/20 rounded-2xl no-underline transition-all duration-300 relative overflow-hidden hover:translate-x-[5px] hover:bg-primary/10 hover:border-primary/40 before:content-[''] before:absolute before:top-0 before:left-[-100%] before:w-full before:h-full before:bg-gradient-to-r before:from-transparent before:via-primary/10 before:to-transparent before:transition-all before:duration-500 hover:before:left-[100%]">
@@ -499,6 +474,7 @@ export default function Home() {
                 </a>
               </div>
             </div>
+            */}
           </div>
         </section>
 

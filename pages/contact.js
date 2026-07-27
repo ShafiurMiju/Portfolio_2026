@@ -2,65 +2,34 @@ import Head from 'next/head'
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import OrbitalMenu from '../components/OrbitalMenu'
+import { projects } from '../data/projects'
 
 export default function Contact() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const [scrollY, setScrollY] = useState(0)
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: ''
-  })
-  const [focusedField, setFocusedField] = useState(null)
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [submitStatus, setSubmitStatus] = useState(null)
 
   useEffect(() => {
     const handleMouseMove = (e) => {
       setMousePosition({ x: e.clientX, y: e.clientY })
     }
-    
+
     const handleScroll = () => {
       setScrollY(window.scrollY)
     }
 
     window.addEventListener('mousemove', handleMouseMove)
     window.addEventListener('scroll', handleScroll)
-    
+
     return () => {
       window.removeEventListener('mousemove', handleMouseMove)
       window.removeEventListener('scroll', handleScroll)
     }
   }, [])
 
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    })
-  }
-
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    setIsSubmitting(true)
-    
-    // Simulate form submission
-    setTimeout(() => {
-      setIsSubmitting(false)
-      setSubmitStatus('success')
-      setFormData({ name: '', email: '', subject: '', message: '' })
-      
-      setTimeout(() => {
-        setSubmitStatus(null)
-      }, 5000)
-    }, 2000)
-  }
-
   const stats = [
     { label: 'Response Time', value: '< 24h', icon: '⚡' },
-    { label: 'Projects Completed', value: '50+', icon: '✓' },
-    { label: 'Client Satisfaction', value: '100%', icon: '★' },
+    { label: 'Projects Completed', value: projects.length, icon: '✓' },
+    { label: 'Years Experience', value: '3+', icon: '★' },
   ]
 
   return (
@@ -176,143 +145,35 @@ export default function Contact() {
                 ))}
               </div>
 
-              <form onSubmit={handleSubmit} className="relative z-10 space-y-6">
-                {/* Name Field */}
-                <div className="relative">
-                  <label 
-                    className={`absolute left-4 transition-all duration-300 pointer-events-none ${
-                      focusedField === 'name' || formData.name
-                        ? 'top-[-10px] text-xs text-primary bg-dark px-2'
-                        : 'top-4 text-white/60'
-                    }`}
-                  >
-                    Your Name
-                  </label>
-                  <input
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    onFocus={() => setFocusedField('name')}
-                    onBlur={() => setFocusedField(null)}
-                    required
-                    className="w-full px-4 py-4 bg-dark/50 border-2 border-primary/30 rounded-xl text-white placeholder:text-white/40 focus:outline-none focus:border-primary transition-all duration-300"
-                  />
-                  {focusedField === 'name' && (
-                    <div className="absolute right-4 top-4 w-2 h-2 bg-primary rounded-full animate-pulse"></div>
-                  )}
+              <div className="relative z-10 flex flex-col items-center text-center py-8">
+                <div className="w-16 h-16 rounded-2xl bg-[#1dbf73]/15 border border-[#1dbf73]/40 flex items-center justify-center mb-6">
+                  <span className="text-[#1dbf73] text-3xl font-bold leading-none">fi</span>
                 </div>
-
-                {/* Email Field */}
-                <div className="relative">
-                  <label 
-                    className={`absolute left-4 transition-all duration-300 pointer-events-none ${
-                      focusedField === 'email' || formData.email
-                        ? 'top-[-10px] text-xs text-primary bg-dark px-2'
-                        : 'top-4 text-white/60'
-                    }`}
-                  >
-                    Email Address
-                  </label>
-                  <input
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    onFocus={() => setFocusedField('email')}
-                    onBlur={() => setFocusedField(null)}
-                    required
-                    className="w-full px-4 py-4 bg-dark/50 border-2 border-primary/30 rounded-xl text-white placeholder:text-white/40 focus:outline-none focus:border-primary transition-all duration-300"
-                  />
-                  {focusedField === 'email' && (
-                    <div className="absolute right-4 top-4 w-2 h-2 bg-primary rounded-full animate-pulse"></div>
-                  )}
-                </div>
-
-                {/* Subject Field */}
-                <div className="relative">
-                  <label 
-                    className={`absolute left-4 transition-all duration-300 pointer-events-none ${
-                      focusedField === 'subject' || formData.subject
-                        ? 'top-[-10px] text-xs text-primary bg-dark px-2'
-                        : 'top-4 text-white/60'
-                    }`}
-                  >
-                    Subject
-                  </label>
-                  <input
-                    type="text"
-                    name="subject"
-                    value={formData.subject}
-                    onChange={handleChange}
-                    onFocus={() => setFocusedField('subject')}
-                    onBlur={() => setFocusedField(null)}
-                    required
-                    className="w-full px-4 py-4 bg-dark/50 border-2 border-primary/30 rounded-xl text-white placeholder:text-white/40 focus:outline-none focus:border-primary transition-all duration-300"
-                  />
-                  {focusedField === 'subject' && (
-                    <div className="absolute right-4 top-4 w-2 h-2 bg-primary rounded-full animate-pulse"></div>
-                  )}
-                </div>
-
-                {/* Message Field */}
-                <div className="relative">
-                  <label 
-                    className={`absolute left-4 transition-all duration-300 pointer-events-none ${
-                      focusedField === 'message' || formData.message
-                        ? 'top-[-10px] text-xs text-primary bg-dark px-2'
-                        : 'top-4 text-white/60'
-                    }`}
-                  >
-                    Your Message
-                  </label>
-                  <textarea
-                    name="message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    onFocus={() => setFocusedField('message')}
-                    onBlur={() => setFocusedField(null)}
-                    required
-                    rows={6}
-                    className="w-full px-4 py-4 bg-dark/50 border-2 border-primary/30 rounded-xl text-white placeholder:text-white/40 focus:outline-none focus:border-primary transition-all duration-300 resize-none"
-                  ></textarea>
-                  {focusedField === 'message' && (
-                    <div className="absolute right-4 top-4 w-2 h-2 bg-primary rounded-full animate-pulse"></div>
-                  )}
-                </div>
-
-                {/* Submit Button */}
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="relative w-full px-8 py-4 bg-gradient-to-r from-primary to-primary-dark text-white rounded-xl font-semibold text-lg transition-all duration-300 hover:translate-y-[-3px] hover:shadow-[0_15px_40px_rgba(187,134,252,0.4)] disabled:opacity-50 disabled:cursor-not-allowed overflow-hidden group"
+                <h2 className="text-[clamp(1.75rem,3vw,2.25rem)] font-bold text-white mb-4">Hire me on Fiverr</h2>
+                <p className="text-white/60 leading-[1.7] max-w-[460px] mb-8">
+                  Everything runs through my Fiverr gig — messages, scope, milestones and payment stay
+                  in one place, so both of us are covered from brief to delivery.
+                </p>
+                <a
+                  href="https://www.fiverr.com/shafiur_miju"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-3 px-8 py-4 bg-[#1dbf73] text-white rounded-xl font-semibold text-lg no-underline transition-all duration-300 shadow-[0_10px_30px_rgba(29,191,115,0.3)] hover:bg-[#19a463] hover:translate-y-[-3px] hover:shadow-[0_15px_40px_rgba(29,191,115,0.45)]"
                 >
-                  <span className="relative z-10">
-                    {isSubmitting ? 'Sending...' : 'Send Message'}
-                  </span>
-                  {!isSubmitting && (
-                    <div className="absolute inset-0 bg-gradient-to-r from-primary-accent to-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                  )}
-                  {isSubmitting && (
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="w-6 h-6 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
-                    </div>
-                  )}
-                </button>
-
-                {/* Success Message */}
-                {submitStatus === 'success' && (
-                  <div className="p-4 bg-green-500/10 border border-green-500/30 rounded-xl text-green-400 text-center animate-fade-in-up">
-                    ✓ Message sent successfully! I'll get back to you soon.
-                  </div>
-                )}
-              </form>
+                  Message me on Fiverr
+                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                    <path d="M7 10H17M17 10L13 6M17 10L13 14" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                  </svg>
+                </a>
+                <div className="mt-6 font-mono text-sm text-white/40">fiverr.com/shafiur_miju</div>
+              </div>
             </div>
           </div>
 
           {/* Contact Info Sidebar */}
           <div className="space-y-6 [animation:fadeInUp_0.8s_ease_1s_both]">
-            {/* Direct Contact */}
+            {/* Direct Contact — disabled: no personal email on this build.
+                Uncomment and fill in a real address to restore.
             <div className="p-6 bg-primary/[0.03] border border-primary/20 rounded-2xl hover:border-primary/40 transition-all duration-300 group">
               <div className="flex items-start gap-4">
                 <div className="w-12 h-12 flex items-center justify-center bg-primary/10 rounded-xl text-2xl group-hover:scale-110 transition-transform duration-300">
@@ -327,7 +188,10 @@ export default function Contact() {
               </div>
             </div>
 
-            {/* Social Links */}
+            */}
+
+            {/* Social profiles — disabled: no personal handles on this build.
+                Uncomment and fill in real URLs to restore.
             <div className="p-6 bg-primary/[0.03] border border-primary/20 rounded-2xl">
               <h3 className="text-white font-semibold mb-4">Connect on Social</h3>
               <div className="space-y-3">
@@ -361,6 +225,8 @@ export default function Contact() {
               </div>
             </div>
 
+            */}
+
             {/* Availability Status */}
             <div className="p-6 bg-gradient-to-br from-primary/10 to-primary-accent/5 border border-primary/30 rounded-2xl">
               <div className="flex items-center gap-3 mb-3">
@@ -370,6 +236,47 @@ export default function Contact() {
               <p className="text-white/60 text-sm">
                 Currently accepting new projects. Let's discuss how I can help bring your ideas to life!
               </p>
+            </div>
+
+            {/* What I Build */}
+            <div className="p-6 bg-primary/[0.03] border border-primary/20 rounded-2xl">
+              <h3 className="text-white font-semibold mb-4">What I Build</h3>
+              <div className="space-y-3">
+                {[
+                  { icon: '📱', title: 'Mobile Apps', detail: 'React Native for iOS and Android' },
+                  { icon: '🟣', title: 'Backend & APIs', detail: 'ASP.NET, Express, FastAPI' },
+                  { icon: '⚛️', title: 'Web Apps', detail: 'React, Next.js, Tailwind' },
+                  { icon: '🤖', title: 'AI Features', detail: 'LLM integration, self-hosted inference' },
+                ].map((service) => (
+                  <div key={service.title} className="flex items-start gap-3 p-3 bg-primary/5 border border-primary/10 rounded-xl">
+                    <span className="text-xl leading-none mt-0.5">{service.icon}</span>
+                    <div>
+                      <div className="text-white/90 text-sm font-medium">{service.title}</div>
+                      <div className="text-white/50 text-xs mt-0.5">{service.detail}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* How It Works */}
+            <div className="p-6 bg-primary/[0.03] border border-primary/20 rounded-2xl">
+              <h3 className="text-white font-semibold mb-4">How It Works</h3>
+              <ol className="list-none p-0 m-0 space-y-3">
+                {[
+                  'Send your brief through Fiverr',
+                  'We agree on scope, timeline and milestones',
+                  'I build and share progress as it lands',
+                  'Delivery, revisions and handover',
+                ].map((step, index) => (
+                  <li key={step} className="flex gap-3 text-sm text-white/60 leading-[1.5]">
+                    <span className="flex-shrink-0 w-6 h-6 rounded-full bg-primary/15 border border-primary/30 text-primary text-xs font-semibold flex items-center justify-center font-mono">
+                      {index + 1}
+                    </span>
+                    <span>{step}</span>
+                  </li>
+                ))}
+              </ol>
             </div>
           </div>
         </div>
