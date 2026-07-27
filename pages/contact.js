@@ -2,15 +2,16 @@ import Head from 'next/head'
 import Link from 'next/link'
 import SiteHeader from '../components/SiteHeader'
 import SiteFooter from '../components/SiteFooter'
+import Icon from '../components/Icon'
 import { projects } from '../data/projects'
 
 const FIVERR_URL = 'https://www.fiverr.com/shafiur_miju'
 
 const SERVICES = [
-  { title: 'Mobile applications', detail: 'React Native for iOS and Android, from first screen to store release.' },
-  { title: 'Backends and APIs', detail: 'ASP.NET over MSSQL, Express and FastAPI where they fit better.' },
-  { title: 'Web applications', detail: 'React and Next.js — dashboards, portals and marketing sites.' },
-  { title: 'AI features', detail: 'LLM integration, including self-hosted inference for private data.' },
+  { icon: 'mobile', title: 'Mobile applications', detail: 'React Native for iOS and Android, from first screen to store release.' },
+  { icon: 'backend', title: 'Backends and APIs', detail: 'ASP.NET over MSSQL, Express and FastAPI where they fit better.' },
+  { icon: 'web', title: 'Web applications', detail: 'React and Next.js — dashboards, portals and marketing sites.' },
+  { icon: 'ai', title: 'AI features', detail: 'LLM integration, including self-hosted inference for private data.' },
 ]
 
 const STEPS = [
@@ -63,9 +64,10 @@ export default function Contact() {
                   href={FIVERR_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-block mt-9 px-8 py-4 bg-ink text-paper text-[0.9375rem] tracking-wide transition-colors duration-300 hover:bg-accent"
+                  className="group inline-flex items-center gap-2.5 mt-9 px-8 py-4 bg-ink text-paper text-[0.9375rem] tracking-wide transition-colors duration-300 hover:bg-accent"
                 >
                   Open my Fiverr gig
+                  <Icon name="arrowUpRight" size={16} className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </a>
                 <div className="eyebrow mt-6">fiverr.com/shafiur_miju</div>
               </div>
@@ -100,8 +102,11 @@ export default function Contact() {
               <dl className="m-0 border-t border-rule">
                 {SERVICES.map((service) => (
                   <div key={service.title} className="py-5 border-b border-rule-soft">
-                    <dt className="font-serif text-lg leading-snug">{service.title}</dt>
-                    <dd className="m-0 mt-1.5 text-[0.9375rem] text-ink-mute leading-[1.6]">{service.detail}</dd>
+                    <dt className="flex items-center gap-2.5 font-serif text-lg leading-snug">
+                      <Icon name={service.icon} size={17} className="text-ink-mute" />
+                      {service.title}
+                    </dt>
+                    <dd className="m-0 mt-1.5 pl-[1.85rem] text-[0.9375rem] text-ink-mute leading-[1.6]">{service.detail}</dd>
                   </div>
                 ))}
               </dl>
@@ -131,8 +136,12 @@ export default function Contact() {
               <p className="font-serif text-[clamp(1.35rem,2.6vw,1.75rem)] m-0 max-w-[36ch] leading-snug">
                 Want to see the work first?
               </p>
-              <Link href="/work" className="link-rule text-[0.9375rem] text-ink">
+              <Link
+                href="/work"
+                className="group inline-flex items-center gap-2 text-[0.9375rem] text-ink border-b border-ink pb-0.5 transition-colors hover:text-accent hover:border-accent"
+              >
                 Browse all {projects.length} projects
+                <Icon name="arrowRight" size={15} className="transition-transform duration-300 group-hover:translate-x-1" />
               </Link>
             </div>
           </div>

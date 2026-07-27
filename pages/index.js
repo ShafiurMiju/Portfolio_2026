@@ -3,6 +3,8 @@ import Link from 'next/link'
 import SiteHeader from '../components/SiteHeader'
 import SiteFooter from '../components/SiteFooter'
 import SectionHeading from '../components/SectionHeading'
+import Icon, { PLATFORM_ICONS } from '../components/Icon'
+import TechMark from '../components/TechMark'
 import { projects, featuredProjects } from '../data/projects'
 import { skillGroups } from '../data/skills'
 
@@ -53,15 +55,17 @@ export default function Home() {
                   href={FIVERR_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-7 py-3.5 bg-ink text-paper text-[0.9375rem] tracking-wide transition-colors duration-300 hover:bg-accent"
+                  className="group inline-flex items-center gap-2.5 px-7 py-3.5 bg-ink text-paper text-[0.9375rem] tracking-wide transition-colors duration-300 hover:bg-accent"
                 >
                   Hire me on Fiverr
+                  <Icon name="arrowUpRight" size={16} className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </a>
                 <Link
                   href="/work"
-                  className="px-7 py-3.5 border border-rule text-ink text-[0.9375rem] tracking-wide transition-colors duration-300 hover:border-ink"
+                  className="group inline-flex items-center gap-2.5 px-7 py-3.5 border border-rule text-ink text-[0.9375rem] tracking-wide transition-colors duration-300 hover:border-ink"
                 >
                   View selected work
+                  <Icon name="arrowRight" size={16} className="transition-transform duration-300 group-hover:translate-x-1" />
                 </Link>
               </div>
             </div>
@@ -148,15 +152,21 @@ export default function Home() {
                   className="grid gap-3 md:grid-cols-[minmax(180px,1fr)_2.4fr] md:gap-10 py-7 border-b border-rule"
                 >
                   <dt>
-                    <div className="font-serif text-[1.375rem] leading-tight">{group.name}</div>
-                    <div className="text-ink-mute text-sm mt-1.5 leading-snug">{group.blurb}</div>
+                    <div className="flex items-center gap-3">
+                      <span className="w-9 h-9 border border-rule bg-card flex items-center justify-center text-ink-soft">
+                        <Icon name={group.icon} size={17} />
+                      </span>
+                      <span className="font-serif text-[1.375rem] leading-tight">{group.name}</span>
+                    </div>
+                    <div className="text-ink-mute text-sm mt-2 leading-snug">{group.blurb}</div>
                   </dt>
                   <dd className="m-0 flex flex-wrap gap-x-2.5 gap-y-2 items-start md:pt-1">
                     {group.skills.map((skill) => (
                       <span
                         key={skill}
-                        className="px-3 py-1 bg-card border border-rule text-[0.875rem] text-ink-soft transition-colors duration-200 hover:border-ink hover:text-ink"
+                        className="inline-flex items-center gap-2 pl-2.5 pr-3 py-1.5 bg-card border border-rule text-[0.875rem] text-ink-soft transition-colors duration-200 hover:border-ink hover:text-ink"
                       >
+                        <TechMark name={skill} size={14} />
                         {skill}
                       </span>
                     ))}
@@ -211,15 +221,24 @@ export default function Home() {
                           href={project.liveUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="link-rule inline-block mt-6 text-[0.9375rem] text-ink"
+                          className="inline-flex items-center gap-2 mt-6 text-[0.9375rem] text-ink border-b border-ink pb-0.5 transition-colors hover:text-accent hover:border-accent"
                         >
                           Visit site
+                          <Icon name="arrowUpRight" size={14} />
                         </a>
                       )}
                     </div>
 
                     {project.highlights?.length > 0 && (
                       <div className="lg:border-l lg:border-rule-soft lg:pl-10">
+                        <div className="flex flex-wrap items-center gap-x-4 gap-y-2 mb-5">
+                          {project.platforms.map((platform) => (
+                            <span key={platform} className="inline-flex items-center gap-1.5 text-[0.8125rem] text-ink-mute">
+                              <Icon name={PLATFORM_ICONS[platform] || 'dot'} size={15} />
+                              {platform}
+                            </span>
+                          ))}
+                        </div>
                         <div className="eyebrow mb-4">Notes</div>
                         <ul className="list-none p-0 m-0 space-y-3">
                           {project.highlights.slice(0, 4).map((highlight) => (
@@ -238,8 +257,12 @@ export default function Home() {
           </div>
 
           <div className="mt-12">
-            <Link href="/work" className="link-rule text-[0.9375rem] text-ink">
+            <Link
+              href="/work"
+              className="group inline-flex items-center gap-2 text-[0.9375rem] text-ink border-b border-ink pb-0.5 transition-colors hover:text-accent hover:border-accent"
+            >
               View all {projects.length} projects
+              <Icon name="arrowRight" size={15} className="transition-transform duration-300 group-hover:translate-x-1" />
             </Link>
           </div>
         </section>
@@ -261,12 +284,17 @@ export default function Home() {
                   href={FIVERR_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-7 py-3.5 bg-ink text-paper text-[0.9375rem] tracking-wide transition-colors duration-300 hover:bg-accent"
+                  className="group inline-flex items-center gap-2.5 px-7 py-3.5 bg-ink text-paper text-[0.9375rem] tracking-wide transition-colors duration-300 hover:bg-accent"
                 >
                   Hire me on Fiverr
+                  <Icon name="arrowUpRight" size={16} className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </a>
-                <Link href="/contact" className="link-rule text-[0.9375rem] text-ink">
+                <Link
+                  href="/contact"
+                  className="group inline-flex items-center gap-2 text-[0.9375rem] text-ink border-b border-ink pb-0.5 transition-colors hover:text-accent hover:border-accent"
+                >
                   How working together goes
+                  <Icon name="arrowRight" size={15} className="transition-transform duration-300 group-hover:translate-x-1" />
                 </Link>
               </div>
               <div className="eyebrow mt-8">fiverr.com/shafiur_miju</div>

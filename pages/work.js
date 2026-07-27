@@ -4,6 +4,7 @@ import { useState } from 'react'
 import SiteHeader from '../components/SiteHeader'
 import SiteFooter from '../components/SiteFooter'
 import SectionHeading from '../components/SectionHeading'
+import Icon, { PLATFORM_ICONS } from '../components/Icon'
 import { projects, projectCategories } from '../data/projects'
 
 const FIVERR_URL = 'https://www.fiverr.com/shafiur_miju'
@@ -117,16 +118,24 @@ export default function Work() {
                         href={project.liveUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="link-rule inline-block mt-5 text-[0.9375rem] text-ink"
+                        className="inline-flex items-center gap-2 mt-5 text-[0.9375rem] text-ink border-b border-ink pb-0.5 transition-colors hover:text-accent hover:border-accent"
                       >
                         Visit site
+                        <Icon name="arrowUpRight" size={14} />
                       </a>
                     )}
                   </div>
 
                   <div className="lg:border-l lg:border-rule-soft lg:pl-10">
                     <div className="eyebrow mb-3">Platforms</div>
-                    <div className="text-[0.9375rem] text-ink-soft mb-6">{project.platforms.join(' · ')}</div>
+                    <div className="flex flex-wrap items-center gap-x-4 gap-y-2 mb-6">
+                      {project.platforms.map((platform) => (
+                        <span key={platform} className="inline-flex items-center gap-1.5 text-[0.9375rem] text-ink-soft">
+                          <Icon name={PLATFORM_ICONS[platform] || 'dot'} size={15} />
+                          {platform}
+                        </span>
+                      ))}
+                    </div>
 
                     {project.highlights?.length > 0 && (
                       <>
@@ -166,12 +175,17 @@ export default function Work() {
                   href={FIVERR_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-7 py-3.5 bg-ink text-paper text-[0.9375rem] tracking-wide transition-colors duration-300 hover:bg-accent"
+                  className="group inline-flex items-center gap-2.5 px-7 py-3.5 bg-ink text-paper text-[0.9375rem] tracking-wide transition-colors duration-300 hover:bg-accent"
                 >
                   Hire me on Fiverr
+                  <Icon name="arrowUpRight" size={16} className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </a>
-                <Link href="/contact" className="link-rule text-[0.9375rem] text-ink">
+                <Link
+                  href="/contact"
+                  className="group inline-flex items-center gap-2 text-[0.9375rem] text-ink border-b border-ink pb-0.5 transition-colors hover:text-accent hover:border-accent"
+                >
                   How working together goes
+                  <Icon name="arrowRight" size={15} className="transition-transform duration-300 group-hover:translate-x-1" />
                 </Link>
               </div>
             </div>

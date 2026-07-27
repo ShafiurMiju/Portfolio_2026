@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Icon from './Icon'
 
 export default function SiteFooter() {
   return (
@@ -29,9 +30,10 @@ export default function SiteFooter() {
               href="https://www.fiverr.com/shafiur_miju"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block text-[0.9375rem] text-ink border-b border-ink pb-0.5 hover:text-accent hover:border-accent transition-colors"
+              className="inline-flex items-center gap-2 text-[0.9375rem] text-ink border-b border-ink pb-0.5 hover:text-accent hover:border-accent transition-colors"
             >
               fiverr.com/shafiur_miju
+              <Icon name="arrowUpRight" size={14} />
             </a>
             <p className="text-ink-mute text-sm mt-3">
               Briefs, milestones and delivery all run through Fiverr.

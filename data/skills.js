@@ -3,7 +3,7 @@
 
 export const skillGroups = [
   {
-    icon: '⚛️',
+    icon: 'frontend',
     name: 'Frontend',
     blurb: 'React on the web and on device, sharing one component mindset.',
     skills: [
@@ -17,7 +17,7 @@ export const skillGroups = [
     ],
   },
   {
-    icon: '🟣',
+    icon: 'backend',
     name: 'Backend',
     blurb: 'ASP.NET as the primary stack, Express and FastAPI alongside it.',
     skills: [
@@ -30,25 +30,25 @@ export const skillGroups = [
     ],
   },
   {
-    icon: '🗄️',
+    icon: 'database',
     name: 'Database',
     blurb: 'Relational and document stores, whichever the product needs.',
     skills: ['MSSQL', 'MongoDB', 'PostgreSQL'],
   },
   {
-    icon: '💻',
+    icon: 'languages',
     name: 'Languages',
     blurb: 'Typed and untyped, managed and native.',
     skills: ['JavaScript', 'TypeScript', 'C#', 'Python', 'C++'],
   },
   {
-    icon: '🤖',
+    icon: 'ai',
     name: 'AI / ML',
     blurb: 'LLM-backed product features, including self-hosted inference.',
     skills: ['AI', 'Machine Learning', 'LLM', 'Ollama', 'FastAPI', 'Python'],
   },
   {
-    icon: '⚙️',
+    icon: 'devops',
     name: 'DevOps & Tools',
     blurb: 'Shipping, hosting and the servers underneath.',
     skills: [

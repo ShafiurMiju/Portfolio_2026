@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import SiteHeader from '../../components/SiteHeader'
 import SiteFooter from '../../components/SiteFooter'
+import Icon from '../../components/Icon'
 import { posts, getPost } from '../../data/posts'
 
 export default function BlogPost() {
@@ -25,7 +26,11 @@ export default function BlogPost() {
             <h1 className="font-serif text-[clamp(2rem,5vw,3.25rem)] leading-tight m-0">
               This piece isn't here.
             </h1>
-            <Link href="/blog" className="link-rule inline-block mt-8 text-[0.9375rem] text-ink">
+            <Link
+              href="/blog"
+              className="inline-flex items-center gap-2 mt-8 text-[0.9375rem] text-ink border-b border-ink pb-0.5 transition-colors hover:text-accent hover:border-accent"
+            >
+              <Icon name="arrowLeft" size={15} />
               Back to the journal
             </Link>
           </div>
@@ -50,12 +55,23 @@ export default function BlogPost() {
         <article>
           <header className="max-w-[1180px] mx-auto px-6 sm:px-10">
             <div className="py-14 md:py-20 border-b border-rule">
-              <Link href="/blog" className="eyebrow hover:text-accent transition-colors">
-                ← Journal
+              <Link href="/blog" className="eyebrow inline-flex items-center gap-2 hover:text-accent transition-colors">
+                <Icon name="arrowLeft" size={14} />
+                Journal
               </Link>
-              <div className="eyebrow mt-8 mb-5">
-                {post.category} <span className="text-rule mx-2">|</span> {post.date}
-                <span className="text-rule mx-2">|</span> {post.readTime}
+              <div className="eyebrow mt-8 mb-5 flex flex-wrap items-center gap-x-5 gap-y-2">
+                <span className="inline-flex items-center gap-1.5">
+                  <Icon name="tag" size={13} />
+                  {post.category}
+                </span>
+                <span className="inline-flex items-center gap-1.5">
+                  <Icon name="calendar" size={13} />
+                  {post.date}
+                </span>
+                <span className="inline-flex items-center gap-1.5">
+                  <Icon name="clock" size={13} />
+                  {post.readTime}
+                </span>
               </div>
               <h1 className="font-serif text-[clamp(2.25rem,5.5vw,4rem)] leading-[1.08] tracking-[-0.015em] m-0 max-w-[20ch]">
                 {post.title}
@@ -93,7 +109,10 @@ export default function BlogPost() {
                           <span className="block font-serif text-[1.0625rem] leading-snug transition-colors duration-300 group-hover:text-accent">
                             {entry.title}
                           </span>
-                          <span className="eyebrow block mt-1.5">{entry.readTime}</span>
+                          <span className="eyebrow mt-1.5 flex items-center gap-1.5">
+                            <Icon name="clock" size={13} />
+                            {entry.readTime}
+                          </span>
                         </Link>
                       </li>
                     ))}
@@ -115,9 +134,10 @@ export default function BlogPost() {
                 href="https://www.fiverr.com/shafiur_miju"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-7 py-3.5 bg-ink text-paper text-[0.9375rem] tracking-wide transition-colors duration-300 hover:bg-accent"
+                className="group inline-flex items-center gap-2.5 px-7 py-3.5 bg-ink text-paper text-[0.9375rem] tracking-wide transition-colors duration-300 hover:bg-accent"
               >
                 Hire me on Fiverr
+                <Icon name="arrowUpRight" size={16} className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </a>
             </div>
           </div>

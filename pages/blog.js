@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { useState } from 'react'
 import SiteHeader from '../components/SiteHeader'
 import SiteFooter from '../components/SiteFooter'
+import Icon from '../components/Icon'
 import { posts } from '../data/posts'
 
 export default function Blog() {
@@ -75,21 +76,33 @@ export default function Blog() {
                     {lead.title}
                   </h2>
                   <p className="mt-5 text-ink-soft leading-[1.8] max-w-[58ch]">{lead.excerpt}</p>
-                  <span className="link-rule inline-block mt-7 text-[0.9375rem] text-ink">Read the piece</span>
+                  <span className="inline-flex items-center gap-2 mt-7 text-[0.9375rem] text-ink border-b border-ink pb-0.5 transition-colors group-hover:text-accent group-hover:border-accent">
+                    Read the piece
+                    <Icon name="arrowRight" size={15} className="transition-transform duration-300 group-hover:translate-x-1" />
+                  </span>
                 </div>
                 <div className="lg:border-l lg:border-rule-soft lg:pl-12 lg:pt-2">
                   <dl className="m-0 space-y-4">
                     <div>
                       <dt className="eyebrow">Published</dt>
-                      <dd className="m-0 mt-1 text-[0.9375rem] text-ink-soft">{lead.date}</dd>
+                      <dd className="m-0 mt-1.5 flex items-center gap-2 text-[0.9375rem] text-ink-soft">
+                        <Icon name="calendar" size={15} className="text-ink-mute" />
+                        {lead.date}
+                      </dd>
                     </div>
                     <div>
                       <dt className="eyebrow">Length</dt>
-                      <dd className="m-0 mt-1 text-[0.9375rem] text-ink-soft">{lead.readTime}</dd>
+                      <dd className="m-0 mt-1.5 flex items-center gap-2 text-[0.9375rem] text-ink-soft">
+                        <Icon name="clock" size={15} className="text-ink-mute" />
+                        {lead.readTime}
+                      </dd>
                     </div>
                     <div>
                       <dt className="eyebrow">Filed under</dt>
-                      <dd className="m-0 mt-1 text-[0.9375rem] text-ink-soft">{lead.tags.join(' · ')}</dd>
+                      <dd className="m-0 mt-1.5 flex items-start gap-2 text-[0.9375rem] text-ink-soft">
+                        <Icon name="tag" size={15} className="text-ink-mute mt-1" />
+                        <span>{lead.tags.join(' · ')}</span>
+                      </dd>
                     </div>
                   </dl>
                 </div>
@@ -119,7 +132,10 @@ export default function Blog() {
                   </h3>
                   <p className="mt-2.5 text-ink-soft leading-[1.7] max-w-[62ch]">{post.excerpt}</p>
                 </div>
-                <span className="eyebrow whitespace-nowrap">{post.readTime}</span>
+                <span className="eyebrow whitespace-nowrap inline-flex items-center gap-1.5">
+                  <Icon name="clock" size={13} />
+                  {post.readTime}
+                </span>
               </div>
             </Link>
           ))}
@@ -132,8 +148,12 @@ export default function Blog() {
               <p className="font-serif text-[clamp(1.35rem,2.6vw,1.75rem)] m-0 max-w-[36ch] leading-snug">
                 Prefer to see the work rather than read about it?
               </p>
-              <Link href="/work" className="link-rule text-[0.9375rem] text-ink">
+              <Link
+                href="/work"
+                className="group inline-flex items-center gap-2 text-[0.9375rem] text-ink border-b border-ink pb-0.5 transition-colors hover:text-accent hover:border-accent"
+              >
                 Browse the projects
+                <Icon name="arrowRight" size={15} className="transition-transform duration-300 group-hover:translate-x-1" />
               </Link>
             </div>
           </div>
