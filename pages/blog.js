@@ -16,7 +16,7 @@ export default function Blog() {
   return (
     <>
       <Head>
-        <title>Journal — Shafiur Rahman</title>
+        <title>Articles — Shafiur Rahman</title>
         <meta
           name="description"
           content="Notes on building software: architecture, TypeScript, performance and design systems."
@@ -32,11 +32,11 @@ export default function Blog() {
           <div className="py-16 md:py-24 border-b border-rule">
             <div className="eyebrow mb-6">Writing</div>
             <h1 className="font-serif text-[clamp(2.5rem,6vw,4.25rem)] leading-[1.05] tracking-[-0.015em] m-0">
-              Journal
+              Articles
             </h1>
             <p className="mt-6 text-ink-soft leading-[1.8] max-w-[58ch]">
-              Notes on the craft — architecture, type systems, performance and the design decisions
-              that outlive a release.
+              Things I've written about building software — architecture, TypeScript, performance
+              and design systems.
             </p>
           </div>
         </section>
@@ -70,7 +70,7 @@ export default function Blog() {
               <div className="grid gap-8 lg:grid-cols-[1.6fr_1fr] lg:gap-16 items-start">
                 <div>
                   <div className="eyebrow mb-4">
-                    Latest <span className="text-rule mx-2">|</span> {lead.category}
+                    Most recent <span className="text-rule mx-2">·</span> {lead.category}
                   </div>
                   <h2 className="font-serif text-[clamp(2rem,4.6vw,3.25rem)] leading-[1.1] m-0 transition-colors duration-300 group-hover:text-accent">
                     {lead.title}
@@ -91,17 +91,17 @@ export default function Blog() {
                       </dd>
                     </div>
                     <div>
-                      <dt className="eyebrow">Length</dt>
+                      <dt className="eyebrow">Reading time</dt>
                       <dd className="m-0 mt-1.5 flex items-center gap-2 text-[0.9375rem] text-ink-soft">
                         <Icon name="clock" size={15} className="text-ink-mute" />
                         {lead.readTime}
                       </dd>
                     </div>
                     <div>
-                      <dt className="eyebrow">Filed under</dt>
+                      <dt className="eyebrow">Topics</dt>
                       <dd className="m-0 mt-1.5 flex items-start gap-2 text-[0.9375rem] text-ink-soft">
                         <Icon name="tag" size={15} className="text-ink-mute mt-1" />
-                        <span>{lead.tags.join(' · ')}</span>
+                        <span>{lead.tags.join(', ')}</span>
                       </dd>
                     </div>
                   </dl>
@@ -125,7 +125,7 @@ export default function Blog() {
                 </span>
                 <div>
                   <div className="eyebrow mb-2">
-                    {post.category} <span className="text-rule mx-2">|</span> {post.date}
+                    {post.category} <span className="text-rule mx-2">·</span> {post.date}
                   </div>
                   <h3 className="font-serif text-[clamp(1.35rem,2.4vw,1.75rem)] leading-tight m-0 transition-colors duration-300 group-hover:text-accent">
                     {post.title}
@@ -146,13 +146,13 @@ export default function Blog() {
           <div className="max-w-[1180px] mx-auto px-6 sm:px-10 py-16">
             <div className="flex flex-wrap items-center justify-between gap-6">
               <p className="font-serif text-[clamp(1.35rem,2.6vw,1.75rem)] m-0 max-w-[36ch] leading-snug">
-                Prefer to see the work rather than read about it?
+                Would you rather see the work?
               </p>
               <Link
                 href="/work"
                 className="group inline-flex items-center gap-2 text-[0.9375rem] text-ink border-b border-ink pb-0.5 transition-colors hover:text-accent hover:border-accent"
               >
-                Browse the projects
+                See all projects
                 <Icon name="arrowRight" size={15} className="transition-transform duration-300 group-hover:translate-x-1" />
               </Link>
             </div>

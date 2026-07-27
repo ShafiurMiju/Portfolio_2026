@@ -5,9 +5,9 @@ import Icon from './Icon'
 
 const NAV = [
   { label: 'Work', href: '/work' },
-  { label: 'Expertise', href: '/#expertise' },
+  { label: 'Skills', href: '/#skills' },
   { label: 'About', href: '/#about' },
-  { label: 'Journal', href: '/blog' },
+  { label: 'Articles', href: '/blog' },
   { label: 'Contact', href: '/contact' },
 ]
 

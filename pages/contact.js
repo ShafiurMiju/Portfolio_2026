@@ -36,13 +36,13 @@ export default function Contact() {
         {/* Header */}
         <section className="max-w-[1180px] mx-auto px-6 sm:px-10">
           <div className="py-16 md:py-24 border-b border-rule">
-            <div className="eyebrow mb-6">Engagement</div>
+            <div className="eyebrow mb-6">Contact</div>
             <h1 className="font-serif text-[clamp(2.5rem,6vw,4.25rem)] leading-[1.05] tracking-[-0.015em] m-0">
-              Let's begin
+              Start a project
             </h1>
             <p className="mt-6 text-ink-soft leading-[1.8] max-w-[58ch]">
-              Everything runs through my Fiverr gig — messages, scope, milestones and payment stay in
-              one place, so both of us are covered from the first note to handover.
+              I take all work through Fiverr. Messages, agreed scope, milestones and payment stay in
+              one place, so you're protected from the first message to final delivery.
             </p>
           </div>
         </section>
@@ -52,13 +52,13 @@ export default function Contact() {
             {/* Primary call to action */}
             <div>
               <div className="border border-rule bg-card p-8 sm:p-12">
-                <div className="eyebrow mb-6">Fiverr</div>
+                <div className="eyebrow mb-6">The only way to reach me</div>
                 <h2 className="font-serif text-[clamp(1.85rem,4vw,2.6rem)] leading-[1.15] m-0">
                   Hire me on Fiverr
                 </h2>
                 <p className="mt-5 text-ink-soft leading-[1.8] max-w-[46ch]">
-                  Send the brief with whatever detail you have. I'll reply with questions, a proposed
-                  scope and a delivery schedule — usually within a day.
+                  Describe your project — a rough idea is enough. I'll reply with questions, what I
+                  can build, how long it will take and what it costs. Usually within a day.
                 </p>
                 <a
                   href={FIVERR_URL}
@@ -75,7 +75,7 @@ export default function Contact() {
               {/* Figures */}
               <div className="mt-10 grid grid-cols-1 sm:grid-cols-3 border-t border-b border-rule divide-y sm:divide-y-0 sm:divide-x divide-rule">
                 {[
-                  { value: '< 24h', label: 'Typical reply' },
+                  { value: '< 24h', label: 'Average reply time' },
                   { value: projects.length, label: 'Projects delivered' },
                   { value: '3+', label: 'Years experience' },
                 ].map((figure) => (
@@ -98,7 +98,7 @@ export default function Contact() {
 
             {/* Services + process */}
             <aside>
-              <div className="eyebrow mb-5">What I build</div>
+              <div className="eyebrow mb-5">What I can build for you</div>
               <dl className="m-0 border-t border-rule">
                 {SERVICES.map((service) => (
                   <div key={service.title} className="py-5 border-b border-rule-soft">
@@ -111,7 +111,7 @@ export default function Contact() {
                 ))}
               </dl>
 
-              <div className="eyebrow mt-12 mb-5">How it goes</div>
+              <div className="eyebrow mt-12 mb-5">How we work together</div>
               <ol className="list-none p-0 m-0 border-t border-rule">
                 {STEPS.map((step, index) => (
                   <li key={step.title} className="py-5 border-b border-rule-soft flex gap-5">
@@ -134,7 +134,7 @@ export default function Contact() {
           <div className="max-w-[1180px] mx-auto px-6 sm:px-10 py-16">
             <div className="flex flex-wrap items-center justify-between gap-6">
               <p className="font-serif text-[clamp(1.35rem,2.6vw,1.75rem)] m-0 max-w-[36ch] leading-snug">
-                Want to see the work first?
+                Want to see my work first?
               </p>
               <Link
                 href="/work"

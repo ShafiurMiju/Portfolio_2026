@@ -1,6 +1,6 @@
 // Small marks for individual technologies.
-// Technologies with a recognisable shape get a drawn glyph; the rest get a
-// mono-type monogram, so every chip is anchored the same way.
+// Well-known tools get their own shape; everything else gets a glyph for the
+// kind of thing it is (server, database, language, UI, tool).
 
 const GLYPHS = {
   react: (
@@ -78,6 +78,22 @@ const GLYPHS = {
       <path d="M3 7l9 6 9-6" />
     </>
   ),
+  monitor: (
+    <>
+      <rect x="3" y="4" width="18" height="13" rx="1.5" />
+      <path d="M8 21h8M12 17v4" />
+    </>
+  ),
+  code: <path d="M8.5 7L3.5 12l5 5M15.5 7l5 5-5 5" />,
+  layers: (
+    <>
+      <path d="M12 3l9 4.5-9 4.5-9-4.5L12 3z" />
+      <path d="M3 12.5l9 4.5 9-4.5M3 17l9 4.5 9-4.5" />
+    </>
+  ),
+  wrench: (
+    <path d="M15.5 3.5a5 5 0 0 0-4.6 7l-7 7 2.6 2.6 7-7a5 5 0 0 0 6.4-6.3l-3 3-2.7-2.7 3-3a5 5 0 0 0-1.7-.6z" />
+  ),
   sliders: (
     <>
       <path d="M4 17h16M4 12h16M4 7h16" />
@@ -119,37 +135,27 @@ const MARKS = {
   'mail server configuration': { glyph: 'mail' },
   'go high level': { glyph: 'sliders' },
 
-  'asp.net': { text: 'NET' },
-  '.net': { text: 'NET' },
-  'express.js': { text: 'EX' },
-  'express': { text: 'EX' },
-  'radzen': { text: 'RZ' },
-  'postgresql': { text: 'PG' },
-  'javascript': { text: 'JS' },
-  'typescript': { text: 'TS' },
-  'c#': { text: 'C#' },
-  'c++': { text: 'C++' },
-  'svelte': { text: 'S' },
-  'redux toolkit': { text: 'RX' },
-  'rtk query': { text: 'RTK' },
-  'visual studio': { text: 'VS' },
+  // No recognisable logo — these get a glyph for the kind of thing they are,
+  // which the chip label then names exactly.
+  'asp.net': { glyph: 'server' },
+  '.net': { glyph: 'server' },
+  'express.js': { glyph: 'server' },
+  'express': { glyph: 'server' },
+  'radzen': { glyph: 'monitor' },
+  'svelte': { glyph: 'monitor' },
+  'postgresql': { glyph: 'db' },
+  'javascript': { glyph: 'code' },
+  'typescript': { glyph: 'code' },
+  'c#': { glyph: 'code' },
+  'c++': { glyph: 'code' },
+  'redux toolkit': { glyph: 'layers' },
+  'rtk query': { glyph: 'layers' },
+  'visual studio': { glyph: 'wrench' },
 }
 
 export default function TechMark({ name, size = 14, className = '' }) {
   const mark = MARKS[String(name).toLowerCase()]
   if (!mark) return null
-
-  if (mark.text) {
-    return (
-      <span
-        className={`font-mono leading-none tracking-[0.04em] text-ink-mute select-none ${className}`}
-        style={{ fontSize: size <= 14 ? '0.5625rem' : '0.625rem' }}
-        aria-hidden="true"
-      >
-        {mark.text}
-      </span>
-    )
-  }
 
   return (
     <svg

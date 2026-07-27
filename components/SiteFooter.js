@@ -19,13 +19,13 @@ export default function SiteFooter() {
             <ul className="space-y-2 text-[0.9375rem] text-ink-soft list-none p-0 m-0">
               <li><Link href="/" className="hover:text-accent transition-colors">Home</Link></li>
               <li><Link href="/work" className="hover:text-accent transition-colors">Work</Link></li>
-              <li><Link href="/blog" className="hover:text-accent transition-colors">Journal</Link></li>
+              <li><Link href="/blog" className="hover:text-accent transition-colors">Articles</Link></li>
               <li><Link href="/contact" className="hover:text-accent transition-colors">Contact</Link></li>
             </ul>
           </div>
 
           <div>
-            <div className="eyebrow mb-4">Engage</div>
+            <div className="eyebrow mb-4">Hire me</div>
             <a
               href="https://www.fiverr.com/shafiur_miju"
               target="_blank"
@@ -36,7 +36,7 @@ export default function SiteFooter() {
               <Icon name="arrowUpRight" size={14} />
             </a>
             <p className="text-ink-mute text-sm mt-3">
-              Briefs, milestones and delivery all run through Fiverr.
+Send a brief on Fiverr and I'll reply with a plan and a price.
             </p>
           </div>
         </div>

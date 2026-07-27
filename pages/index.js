@@ -14,10 +14,10 @@ export default function Home() {
   const technologies = new Set(projects.flatMap((project) => project.tech)).size
 
   const facts = [
-    { label: 'Primary stack', value: 'ASP.NET · C# · MSSQL' },
-    { label: 'Also builds with', value: 'Express · Next.js · React Native' },
+    { label: 'Main stack', value: 'ASP.NET · C# · MSSQL' },
+    { label: 'Also works with', value: 'Express · Next.js · React Native' },
     { label: 'Experience', value: '3+ years' },
-    { label: 'Engagement', value: 'Fiverr' },
+    { label: 'How to hire me', value: 'Through Fiverr' },
   ]
 
   return (
@@ -39,15 +39,15 @@ export default function Home() {
           <div className="py-20 md:py-28 grid gap-14 lg:grid-cols-[1.45fr_1fr] lg:gap-20 items-start">
             <div className="animate-rise">
               <div className="eyebrow mb-6">Full-Stack Developer · Bangladesh</div>
-              <h1 className="font-serif text-[clamp(2.75rem,7vw,5rem)] leading-[1.04] tracking-[-0.015em] m-0">
-                Software built to
+              <h1 className="font-serif text-[clamp(2.5rem,6.4vw,4.5rem)] leading-[1.06] tracking-[-0.015em] m-0">
+                I build web apps, mobile apps,
                 <br />
-                <span className="italic">last</span> the maintenance.
+                and the systems behind them.
               </h1>
               <p className="mt-8 text-[1.0625rem] md:text-lg leading-[1.75] text-ink-soft max-w-[54ch]">
-                I build the unglamorous parts properly — the ASP.NET services, the data models, the
-                offline caches, the release pipelines — then put a considered interface on top, on
-                the web with React and on device with React Native.
+                Full-stack developer with 3+ years of experience. Back end in ASP.NET and MSSQL,
+                websites in React and Next.js, and iOS and Android apps in React Native — including
+                the AI features on top.
               </p>
 
               <div className="mt-10 flex flex-wrap items-center gap-4">
@@ -72,7 +72,7 @@ export default function Home() {
 
             {/* Colophon-style fact list */}
             <aside className="lg:pt-4 lg:border-l lg:border-rule lg:pl-12">
-              <div className="eyebrow mb-6">At a glance</div>
+              <div className="eyebrow mb-6">Quick facts</div>
               <dl className="m-0">
                 {facts.map((fact) => (
                   <div key={fact.label} className="py-4 border-b border-rule-soft first:border-t first:border-rule-soft">
@@ -107,44 +107,51 @@ export default function Home() {
 
         {/* About */}
         <section id="about" className="max-w-[1180px] mx-auto px-6 sm:px-10 py-24 md:py-28 scroll-mt-24">
-          <SectionHeading numeral="I" title="About" aside="Profile" />
+          <SectionHeading title="About Me" />
           <div className="grid gap-14 lg:grid-cols-[1.5fr_1fr] lg:gap-20">
             <div className="max-w-[62ch]">
               <p className="font-serif text-[1.375rem] md:text-[1.5rem] leading-[1.6] text-ink mb-8">
-                I work across the whole stack, but the centre of gravity is the back end — ASP.NET
-                services over MSSQL, and Express or FastAPI where the project calls for them.
+                I work across the whole stack, but most of my experience is on the back end —
+                ASP.NET services over MSSQL, plus Express or FastAPI when a project needs them.
               </p>
               <p className="text-ink-soft leading-[1.8] mb-6">
-                Most of what I ship is used daily by people at work: compliance documents moving
-                through review, patients managing memberships, field teams filing leave from their
-                phones. That shapes how I build — predictable data models, states that survive a lost
-                connection, and interfaces that stay legible when the content is dull but important.
+                Most of what I build is used at work every day: compliance documents going through
+                review, patients managing their memberships, field teams filing leave from their
+                phones. So I build for daily use — data you can trust, apps that keep working when
+                the connection drops, and screens that stay easy to read.
               </p>
               <p className="text-ink-soft leading-[1.8]">
-                Lately a good deal of that work has involved language models: a self-hosted inference
-                service behind a medical assistant, a realtime voice coach, transcription pipelines.
-                The interesting problems there are the same as always — latency, failure handling,
-                and keeping data where it belongs.
+                Recently a lot of that work has involved AI: a medical assistant running on a
+                self-hosted language model, a realtime voice coach, and transcription pipelines. When
+                the data is sensitive, I run the model on your own server so nothing leaves it.
               </p>
             </div>
 
             <aside>
-              <div className="eyebrow mb-5">Education</div>
-              <div className="border-t border-rule pt-5">
-                <div className="font-serif text-xl leading-snug">
-                  American International University&#8209;Bangladesh
-                </div>
-                <div className="text-ink-soft mt-2 text-[0.9375rem]">BSc in Computer Science &amp; Engineering</div>
-                <div className="text-ink-mute mt-1 text-[0.9375rem]">Major in Software Engineering · Completed</div>
-              </div>
+              <div className="eyebrow mb-5">Good to know</div>
+              <ul className="list-none p-0 m-0 border-t border-rule">
+                {[
+                  `${projects.length} projects delivered — business platforms, portals and mobile apps`,
+                  'I handle the whole job: database, API and the screens on top',
+                  'One codebase shipped to web, iOS and Android',
+                  'AI features built in — and run on your own server when the data is private',
+                  'Based in Bangladesh (GMT+6), working with clients in any timezone',
+                  'Hired through Fiverr, with agreed milestones and a fixed price',
+                ].map((point) => (
+                  <li key={point} className="flex gap-3 py-3.5 border-b border-rule-soft">
+                    <Icon name="check" size={15} className="text-accent mt-[0.3rem]" strokeWidth={1.6} />
+                    <span className="text-[0.9375rem] text-ink-soft leading-[1.6]">{point}</span>
+                  </li>
+                ))}
+              </ul>
             </aside>
           </div>
         </section>
 
         {/* Expertise */}
-        <section id="expertise" className="border-t border-rule bg-paper-alt/40 scroll-mt-24">
+        <section id="skills" className="border-t border-rule bg-paper-alt/40 scroll-mt-24">
           <div className="max-w-[1180px] mx-auto px-6 sm:px-10 py-24 md:py-28">
-            <SectionHeading numeral="II" title="Expertise" aside="What I work in" />
+            <SectionHeading title="Skills" aside="Technologies I work with" />
             <dl className="m-0 border-t border-rule">
               {skillGroups.map((group) => (
                 <div
@@ -180,9 +187,8 @@ export default function Home() {
         {/* Selected work */}
         <section id="work" className="max-w-[1180px] mx-auto px-6 sm:px-10 py-24 md:py-28 scroll-mt-24">
           <SectionHeading
-            numeral="III"
-            title="Selected Work"
-            aside={`${featuredProjects.length} of ${projects.length}`}
+            title="Featured Projects"
+            aside={`${featuredProjects.length} of ${projects.length} projects`}
           />
 
           <div className="-mt-4">
@@ -198,7 +204,7 @@ export default function Home() {
                       <div className="eyebrow mb-3">
                         {project.category}
                         {(project.status || project.year) && (
-                          <span className="text-rule mx-2">|</span>
+                          <span className="text-rule mx-2">·</span>
                         )}
                         {project.status || project.year}
                       </div>
@@ -207,7 +213,8 @@ export default function Home() {
                       </h3>
                       <p className="mt-4 text-ink-soft leading-[1.8] max-w-[58ch]">{project.description}</p>
 
-                      <div className="mt-6 flex flex-wrap gap-x-2 gap-y-1.5 text-[0.875rem] text-ink-mute">
+                      <div className="eyebrow mt-6 mb-2">Built with</div>
+                      <div className="flex flex-wrap gap-x-2 gap-y-1.5 text-[0.875rem] text-ink-mute">
                         {project.tech.map((tech, techIndex) => (
                           <span key={tech}>
                             {tech}
@@ -232,14 +239,15 @@ export default function Home() {
                     {project.highlights?.length > 0 && (
                       <div className="lg:border-l lg:border-rule-soft lg:pl-10">
                         <div className="flex flex-wrap items-center gap-x-4 gap-y-2 mb-5">
+                          <span className="eyebrow">Runs on</span>
                           {project.platforms.map((platform) => (
-                            <span key={platform} className="inline-flex items-center gap-1.5 text-[0.8125rem] text-ink-mute">
+                            <span key={platform} className="inline-flex items-center gap-1.5 text-[0.8125rem] text-ink-soft">
                               <Icon name={PLATFORM_ICONS[platform] || 'dot'} size={15} />
                               {platform}
                             </span>
                           ))}
                         </div>
-                        <div className="eyebrow mb-4">Notes</div>
+                        <div className="eyebrow mb-4">Highlights</div>
                         <ul className="list-none p-0 m-0 space-y-3">
                           {project.highlights.slice(0, 4).map((highlight) => (
                             <li key={highlight} className="text-[0.9375rem] text-ink-soft leading-[1.6] pl-4 relative">
@@ -271,13 +279,14 @@ export default function Home() {
         <section id="contact" className="border-t border-rule bg-paper-alt/60 scroll-mt-24">
           <div className="max-w-[1180px] mx-auto px-6 sm:px-10 py-24 md:py-28">
             <div className="max-w-[62ch]">
-              <div className="eyebrow mb-6">IV · Engagement</div>
+              <div className="eyebrow mb-6">Start a project</div>
               <h2 className="font-serif text-[clamp(2rem,4.5vw,3rem)] leading-[1.15] m-0">
-                Have a project that needs building properly?
+Want to work together?
               </h2>
               <p className="mt-6 text-ink-soft leading-[1.8]">
-                Briefs, scope, milestones and delivery all run through my Fiverr gig, so the terms are
-                clear from the first message and both of us are covered through to handover.
+                Tell me what you need and I'll reply with a plan: what I'll build, how long it takes
+                and what it costs. Everything runs through Fiverr, so you're protected from the first
+                message to final delivery.
               </p>
               <div className="mt-10 flex flex-wrap items-center gap-6">
                 <a

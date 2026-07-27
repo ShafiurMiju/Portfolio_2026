@@ -24,14 +24,14 @@ export default function BlogPost() {
           <div className="max-w-[1180px] mx-auto px-6 sm:px-10 py-32">
             <div className="eyebrow mb-6">404</div>
             <h1 className="font-serif text-[clamp(2rem,5vw,3.25rem)] leading-tight m-0">
-              This piece isn't here.
+Page not found
             </h1>
             <Link
               href="/blog"
               className="inline-flex items-center gap-2 mt-8 text-[0.9375rem] text-ink border-b border-ink pb-0.5 transition-colors hover:text-accent hover:border-accent"
             >
               <Icon name="arrowLeft" size={15} />
-              Back to the journal
+See all articles
             </Link>
           </div>
         </main>
@@ -57,7 +57,7 @@ export default function BlogPost() {
             <div className="py-14 md:py-20 border-b border-rule">
               <Link href="/blog" className="eyebrow inline-flex items-center gap-2 hover:text-accent transition-colors">
                 <Icon name="arrowLeft" size={14} />
-                Journal
+                All articles
               </Link>
               <div className="eyebrow mt-8 mb-5 flex flex-wrap items-center gap-x-5 gap-y-2">
                 <span className="inline-flex items-center gap-1.5">
@@ -92,7 +92,7 @@ export default function BlogPost() {
 
               <aside className="lg:border-l lg:border-rule-soft lg:pl-12">
                 <div className="lg:sticky lg:top-28">
-                  <div className="eyebrow mb-4">Filed under</div>
+                  <div className="eyebrow mb-4">Topics</div>
                   <div className="flex flex-wrap gap-2 mb-10">
                     {post.tags.map((tag) => (
                       <span key={tag} className="px-3 py-1 border border-rule text-[0.8125rem] text-ink-soft">
@@ -101,7 +101,7 @@ export default function BlogPost() {
                     ))}
                   </div>
 
-                  <div className="eyebrow mb-4">Continue reading</div>
+                  <div className="eyebrow mb-4">More articles</div>
                   <ul className="list-none p-0 m-0 border-t border-rule">
                     {others.map((entry) => (
                       <li key={entry.id} className="border-b border-rule-soft">
@@ -128,7 +128,7 @@ export default function BlogPost() {
           <div className="max-w-[1180px] mx-auto px-6 sm:px-10 py-16">
             <div className="flex flex-wrap items-center justify-between gap-6">
               <p className="font-serif text-[clamp(1.35rem,2.6vw,1.75rem)] m-0 max-w-[38ch] leading-snug">
-                Working on something along these lines?
+                Need something like this built?
               </p>
               <a
                 href="https://www.fiverr.com/shafiur_miju"

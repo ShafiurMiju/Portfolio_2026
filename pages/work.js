@@ -35,13 +35,13 @@ export default function Work() {
         {/* Header */}
         <section className="max-w-[1180px] mx-auto px-6 sm:px-10">
           <div className="py-16 md:py-24 border-b border-rule">
-            <div className="eyebrow mb-6">Index of projects</div>
+            <div className="eyebrow mb-6">Portfolio</div>
             <h1 className="font-serif text-[clamp(2.5rem,6vw,4.25rem)] leading-[1.05] tracking-[-0.015em] m-0">
-              Work
+              All Projects
             </h1>
             <p className="mt-6 text-ink-soft leading-[1.8] max-w-[58ch]">
-              Enterprise platforms, patient portals, AI services and mobile apps — client work
-              alongside a few things built for their own sake.
+              Every project I've built — business platforms, patient portals, AI services and
+              mobile apps. Use the filters to jump to a type.
             </p>
           </div>
         </section>
@@ -61,8 +61,8 @@ export default function Work() {
                       : 'text-ink-mute border-transparent hover:text-ink'
                   }`}
                 >
-                  {category === 'all' ? 'All' : category}
-                  <sup className="ml-1.5 text-[0.6875rem] text-ink-mute font-mono">{countFor(category)}</sup>
+                  {category === 'all' ? 'All projects' : category}
+                  <span className="ml-1.5 text-[0.8125rem] text-ink-mute">({countFor(category)})</span>
                 </button>
               ))}
             </div>
@@ -82,17 +82,17 @@ export default function Work() {
                   <div>
                     <div className="eyebrow mb-3 flex flex-wrap items-center gap-x-2">
                       <span>{project.category}</span>
-                      {(project.status || project.year) && <span className="text-rule">|</span>}
+                      {(project.status || project.year) && <span className="text-rule">·</span>}
                       {(project.status || project.year) && <span>{project.status || project.year}</span>}
                       {project.personal && (
                         <>
-                          <span className="text-rule">|</span>
-                          <span className="text-accent">Personal</span>
+                          <span className="text-rule">·</span>
+                          <span className="text-accent">Personal project</span>
                         </>
                       )}
                       {project.featured && (
                         <>
-                          <span className="text-rule">|</span>
+                          <span className="text-rule">·</span>
                           <span className="text-accent">Featured</span>
                         </>
                       )}
@@ -104,7 +104,8 @@ export default function Work() {
                     <p className="mt-3 text-ink text-[1.0625rem] leading-[1.7]">{project.summary}</p>
                     <p className="mt-3 text-ink-soft leading-[1.8] max-w-[58ch]">{project.description}</p>
 
-                    <div className="mt-5 flex flex-wrap gap-x-2 gap-y-1.5 text-[0.875rem] text-ink-mute">
+                    <div className="eyebrow mt-5 mb-2">Built with</div>
+                    <div className="flex flex-wrap gap-x-2 gap-y-1.5 text-[0.875rem] text-ink-mute">
                       {project.tech.map((tech, techIndex) => (
                         <span key={tech}>
                           {tech}
@@ -127,7 +128,7 @@ export default function Work() {
                   </div>
 
                   <div className="lg:border-l lg:border-rule-soft lg:pl-10">
-                    <div className="eyebrow mb-3">Platforms</div>
+                    <div className="eyebrow mb-3">Runs on</div>
                     <div className="flex flex-wrap items-center gap-x-4 gap-y-2 mb-6">
                       {project.platforms.map((platform) => (
                         <span key={platform} className="inline-flex items-center gap-1.5 text-[0.9375rem] text-ink-soft">
@@ -139,7 +140,7 @@ export default function Work() {
 
                     {project.highlights?.length > 0 && (
                       <>
-                        <div className="eyebrow mb-3">Notes</div>
+                        <div className="eyebrow mb-3">Highlights</div>
                         <ul className="list-none p-0 m-0 space-y-2.5">
                           {project.highlights.slice(0, 3).map((highlight) => (
                             <li key={highlight} className="text-[0.9375rem] text-ink-soft leading-[1.6] pl-4 relative">
@@ -165,10 +166,10 @@ export default function Work() {
         <section className="border-t border-rule bg-paper-alt/60">
           <div className="max-w-[1180px] mx-auto px-6 sm:px-10 py-20">
             <div className="max-w-[58ch]">
-              <SectionHeading title="Something similar in mind?" aside="Next" />
+              <SectionHeading title="Need something similar?" />
               <p className="text-ink-soft leading-[1.8] -mt-4">
-                Send the brief through Fiverr and I'll come back with scope, timeline and a fixed
-                set of milestones.
+                Tell me what you need on Fiverr and I'll reply with a plan: what gets built, how
+                long it takes and what it costs.
               </p>
               <div className="mt-8 flex flex-wrap items-center gap-6">
                 <a

@@ -87,6 +87,7 @@ const PATHS = {
       <path d="M7.5 7.5h.01" />
     </>
   ),
+  check: <path d="M4 12.5l5 5L20 6.5" />,
   arrowRight: <path d="M4 12h15M13 6l6 6-6 6" />,
   arrowUpRight: <path d="M7 17L17 7M8 7h9v9" />,
   arrowLeft: <path d="M20 12H5M11 6l-6 6 6 6" />,
