@@ -17,7 +17,7 @@ export default function BlogPost() {
     return (
       <>
         <Head>
-          <title>Not found — Shafiur Rahman</title>
+          <title>Not found — Shafiur Miju</title>
         </Head>
         <SiteHeader />
         <main className="pt-[72px]">
@@ -43,7 +43,7 @@ See all articles
   return (
     <>
       <Head>
-        <title>{post.title} — Shafiur Rahman</title>
+        <title>{post.title} — Shafiur Miju</title>
         <meta name="description" content={post.excerpt} />
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -130,6 +130,7 @@ See all articles
               <p className="font-serif text-[clamp(1.35rem,2.6vw,1.75rem)] m-0 max-w-[38ch] leading-snug">
                 Need something like this built?
               </p>
+              <div className="flex flex-wrap items-center gap-4">
               <a
                 href="https://www.fiverr.com/shafiur_miju"
                 target="_blank"
@@ -139,6 +140,16 @@ See all articles
                 Hire me on Fiverr
                 <Icon name="arrowUpRight" size={16} className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </a>
+              <a
+                href="https://www.upwork.com/freelancers/~012a28f5b70869b9f0"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group inline-flex items-center gap-2.5 px-7 py-3.5 border border-rule text-ink text-[0.9375rem] tracking-wide transition-colors duration-300 hover:border-ink"
+              >
+                Hire me on Upwork
+                <Icon name="arrowUpRight" size={16} className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </a>
+              </div>
             </div>
           </div>
         </section>

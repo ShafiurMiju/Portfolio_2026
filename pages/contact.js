@@ -6,6 +6,7 @@ import Icon from '../components/Icon'
 import { projects } from '../data/projects'
 
 const FIVERR_URL = 'https://www.fiverr.com/shafiur_miju'
+const UPWORK_URL = 'https://www.upwork.com/freelancers/~012a28f5b70869b9f0'
 
 const SERVICES = [
   { icon: 'mobile', title: 'Mobile applications', detail: 'React Native for iOS and Android, from first screen to store release.' },
@@ -15,7 +16,7 @@ const SERVICES = [
 ]
 
 const STEPS = [
-  { title: 'Send the brief', detail: 'Describe the project on Fiverr — rough is fine, I will ask the rest.' },
+  { title: 'Send the brief', detail: 'Describe the project on Fiverr or Upwork — rough is fine, I will ask the rest.' },
   { title: 'Agree the shape', detail: 'Scope, timeline and milestones written down before any code.' },
   { title: 'Build in the open', detail: 'Progress shared as it lands, not saved for one big reveal.' },
   { title: 'Deliver and hand over', detail: 'Revisions, source, and whatever documentation the team needs.' },
@@ -25,8 +26,8 @@ export default function Contact() {
   return (
     <>
       <Head>
-        <title>Contact — Shafiur Rahman</title>
-        <meta name="description" content="Start a project. Briefs, milestones and delivery run through Fiverr." />
+        <title>Contact — Shafiur Miju</title>
+        <meta name="description" content="Start a project. Briefs, milestones and delivery run through Fiverr or Upwork." />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
@@ -41,7 +42,7 @@ export default function Contact() {
               Start a project
             </h1>
             <p className="mt-6 text-ink-soft leading-[1.8] max-w-[58ch]">
-              I take all work through Fiverr. Messages, agreed scope, milestones and payment stay in
+              I take all work through Fiverr or Upwork. Messages, agreed scope, milestones and payment stay in
               one place, so you're protected from the first message to final delivery.
             </p>
           </div>
@@ -52,24 +53,35 @@ export default function Contact() {
             {/* Primary call to action */}
             <div>
               <div className="border border-rule bg-card p-8 sm:p-12">
-                <div className="eyebrow mb-6">The only way to reach me</div>
+                <div className="eyebrow mb-6">How to hire me</div>
                 <h2 className="font-serif text-[clamp(1.85rem,4vw,2.6rem)] leading-[1.15] m-0">
-                  Hire me on Fiverr
+                  Hire me on Fiverr or Upwork
                 </h2>
                 <p className="mt-5 text-ink-soft leading-[1.8] max-w-[46ch]">
                   Describe your project — a rough idea is enough. I'll reply with questions, what I
                   can build, how long it will take and what it costs. Usually within a day.
                 </p>
+                <div className="mt-9 flex flex-wrap items-center gap-4">
                 <a
                   href={FIVERR_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group inline-flex items-center gap-2.5 mt-9 px-8 py-4 bg-ink text-paper text-[0.9375rem] tracking-wide transition-colors duration-300 hover:bg-accent"
+                  className="group inline-flex items-center gap-2.5 px-8 py-4 bg-ink text-paper text-[0.9375rem] tracking-wide transition-colors duration-300 hover:bg-accent"
                 >
                   Open my Fiverr gig
                   <Icon name="arrowUpRight" size={16} className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </a>
-                <div className="eyebrow mt-6">fiverr.com/shafiur_miju</div>
+                <a
+                  href={UPWORK_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group inline-flex items-center gap-2.5 px-8 py-4 border border-rule text-ink text-[0.9375rem] tracking-wide transition-colors duration-300 hover:border-ink"
+                >
+                  Open my Upwork profile
+                  <Icon name="arrowUpRight" size={16} className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                </a>
+                </div>
+                <div className="eyebrow mt-6">fiverr.com/shafiur_miju · upwork.com</div>
               </div>
 
               {/* Figures */}

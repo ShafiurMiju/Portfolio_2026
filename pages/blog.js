@@ -16,7 +16,7 @@ export default function Blog() {
   return (
     <>
       <Head>
-        <title>Articles — Shafiur Rahman</title>
+        <title>Articles — Shafiur Miju</title>
         <meta
           name="description"
           content="Notes on building software: architecture, TypeScript, performance and design systems."

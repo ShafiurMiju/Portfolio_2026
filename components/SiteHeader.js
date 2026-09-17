@@ -39,7 +39,7 @@ export default function SiteHeader() {
       <div className="max-w-[1180px] mx-auto px-6 sm:px-10">
         <div className="h-[72px] flex items-center justify-between gap-8">
           <Link href="/" className="group flex items-baseline gap-3">
-            <span className="font-serif text-[1.35rem] tracking-tight text-ink">Shafiur Rahman</span>
+            <span className="font-serif text-[1.35rem] tracking-tight text-ink">Shafiur Miju</span>
             <span className="hidden sm:inline eyebrow">Full-Stack Developer</span>
           </Link>
 

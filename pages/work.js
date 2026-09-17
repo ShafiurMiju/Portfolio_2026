@@ -8,6 +8,7 @@ import Icon, { PLATFORM_ICONS } from '../components/Icon'
 import { projects, projectCategories } from '../data/projects'
 
 const FIVERR_URL = 'https://www.fiverr.com/shafiur_miju'
+const UPWORK_URL = 'https://www.upwork.com/freelancers/~012a28f5b70869b9f0'
 
 export default function Work() {
   const [filter, setFilter] = useState('all')
@@ -21,7 +22,7 @@ export default function Work() {
   return (
     <>
       <Head>
-        <title>Work — Shafiur Rahman</title>
+        <title>Work — Shafiur Miju</title>
         <meta
           name="description"
           content="Selected projects: enterprise platforms, patient portals, AI services and React Native apps."
@@ -168,7 +169,7 @@ export default function Work() {
             <div className="max-w-[58ch]">
               <SectionHeading title="Need something similar?" />
               <p className="text-ink-soft leading-[1.8] -mt-4">
-                Tell me what you need on Fiverr and I'll reply with a plan: what gets built, how
+                Tell me what you need on Fiverr or Upwork and I'll reply with a plan: what gets built, how
                 long it takes and what it costs.
               </p>
               <div className="mt-8 flex flex-wrap items-center gap-6">
@@ -179,6 +180,15 @@ export default function Work() {
                   className="group inline-flex items-center gap-2.5 px-7 py-3.5 bg-ink text-paper text-[0.9375rem] tracking-wide transition-colors duration-300 hover:bg-accent"
                 >
                   Hire me on Fiverr
+                  <Icon name="arrowUpRight" size={16} className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                </a>
+                <a
+                  href={UPWORK_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group inline-flex items-center gap-2.5 px-7 py-3.5 border border-rule text-ink text-[0.9375rem] tracking-wide transition-colors duration-300 hover:border-ink"
+                >
+                  Hire me on Upwork
                   <Icon name="arrowUpRight" size={16} className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </a>
                 <Link

@@ -9,21 +9,22 @@ import { projects, featuredProjects } from '../data/projects'
 import { skillGroups } from '../data/skills'
 
 const FIVERR_URL = 'https://www.fiverr.com/shafiur_miju'
+const UPWORK_URL = 'https://www.upwork.com/freelancers/~012a28f5b70869b9f0'
 
 export default function Home() {
   const technologies = new Set(projects.flatMap((project) => project.tech)).size
 
   const facts = [
-    { label: 'Main stack', value: 'ASP.NET · C# · MSSQL' },
-    { label: 'Also works with', value: 'Express · Next.js · React Native' },
-    { label: 'Experience', value: '3+ years' },
-    { label: 'How to hire me', value: 'Through Fiverr' },
+    { label: 'Experience', value: '3+ years, full-stack' },
+    { label: 'Projects delivered', value: `${projects.length}, across web and mobile` },
+    { label: 'Reply time', value: 'Usually within 24 hours' },
+    { label: 'How to hire me', value: 'On Fiverr or Upwork — fixed price, agreed milestones' },
   ]
 
   return (
     <>
       <Head>
-        <title>Shafiur Rahman — Full-Stack Developer</title>
+        <title>Shafiur Miju — Full-Stack Developer</title>
         <meta
           name="description"
           content="Full-stack developer working in ASP.NET, Express and Next.js, with React on the web and React Native on mobile."
@@ -36,21 +37,39 @@ export default function Home() {
       <main className="pt-[72px]">
         {/* Hero */}
         <section className="max-w-[1180px] mx-auto px-6 sm:px-10">
-          <div className="py-20 md:py-28 grid gap-14 lg:grid-cols-[1.45fr_1fr] lg:gap-20 items-start">
+          <div className="py-16 md:py-24 grid gap-14 lg:grid-cols-[1.45fr_1fr] lg:gap-20 items-start">
             <div className="animate-rise">
-              <div className="eyebrow mb-6">Full-Stack Developer · Bangladesh</div>
-              <h1 className="font-serif text-[clamp(2.5rem,6.4vw,4.5rem)] leading-[1.06] tracking-[-0.015em] m-0">
-                I build web apps, mobile apps,
-                <br />
-                and the systems behind them.
+              <div className="flex flex-wrap items-center gap-x-4 gap-y-2 mb-7">
+                <span className="inline-flex items-center gap-2 eyebrow text-accent">
+                  <span className="w-1.5 h-1.5 rounded-full bg-accent" />
+                  Available for new projects
+                </span>
+                <span className="text-rule">·</span>
+                <span className="eyebrow">Bangladesh · GMT+6</span>
+              </div>
+
+              <h1 className="font-serif text-[clamp(2.35rem,5.4vw,4rem)] leading-[1.08] tracking-[-0.015em] m-0 max-w-[16ch]">
+                I build web apps, mobile apps, and{' '}
+                <span className="italic">the systems behind them.</span>
               </h1>
-              <p className="mt-8 text-[1.0625rem] md:text-lg leading-[1.75] text-ink-soft max-w-[54ch]">
+
+              <p className="mt-7 text-[1.0625rem] md:text-lg leading-[1.75] text-ink-soft max-w-[52ch]">
                 Full-stack developer with 3+ years of experience. Back end in ASP.NET and MSSQL,
                 websites in React and Next.js, and iOS and Android apps in React Native — including
                 the AI features on top.
               </p>
 
-              <div className="mt-10 flex flex-wrap items-center gap-4">
+              {/* Stack at a glance */}
+              <div className="mt-8 pt-6 border-t border-rule-soft flex flex-wrap items-center gap-x-6 gap-y-3">
+                {['ASP.NET', 'React', 'React Native', 'Next.js', 'MSSQL'].map((tech) => (
+                  <span key={tech} className="inline-flex items-center gap-2 text-[0.9375rem] text-ink-soft">
+                    <TechMark name={tech} size={15} />
+                    {tech}
+                  </span>
+                ))}
+              </div>
+
+              <div className="mt-9 flex flex-wrap items-center gap-4">
                 <a
                   href={FIVERR_URL}
                   target="_blank"
@@ -136,7 +155,7 @@ export default function Home() {
                   'One codebase shipped to web, iOS and Android',
                   'AI features built in — and run on your own server when the data is private',
                   'Based in Bangladesh (GMT+6), working with clients in any timezone',
-                  'Hired through Fiverr, with agreed milestones and a fixed price',
+                  'Hired through Fiverr or Upwork, with agreed milestones and a fixed price',
                 ].map((point) => (
                   <li key={point} className="flex gap-3 py-3.5 border-b border-rule-soft">
                     <Icon name="check" size={15} className="text-accent mt-[0.3rem]" strokeWidth={1.6} />
@@ -285,7 +304,7 @@ Want to work together?
               </h2>
               <p className="mt-6 text-ink-soft leading-[1.8]">
                 Tell me what you need and I'll reply with a plan: what I'll build, how long it takes
-                and what it costs. Everything runs through Fiverr, so you're protected from the first
+                and what it costs. Everything runs through Fiverr or Upwork, so you're protected from the first
                 message to final delivery.
               </p>
               <div className="mt-10 flex flex-wrap items-center gap-6">
@@ -298,6 +317,15 @@ Want to work together?
                   Hire me on Fiverr
                   <Icon name="arrowUpRight" size={16} className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </a>
+                <a
+                  href={UPWORK_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group inline-flex items-center gap-2.5 px-7 py-3.5 border border-rule text-ink text-[0.9375rem] tracking-wide transition-colors duration-300 hover:border-ink"
+                >
+                  Hire me on Upwork
+                  <Icon name="arrowUpRight" size={16} className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                </a>
                 <Link
                   href="/contact"
                   className="group inline-flex items-center gap-2 text-[0.9375rem] text-ink border-b border-ink pb-0.5 transition-colors hover:text-accent hover:border-accent"
@@ -306,7 +334,7 @@ Want to work together?
                   <Icon name="arrowRight" size={15} className="transition-transform duration-300 group-hover:translate-x-1" />
                 </Link>
               </div>
-              <div className="eyebrow mt-8">fiverr.com/shafiur_miju</div>
+              <div className="eyebrow mt-8">fiverr.com/shafiur_miju · upwork.com</div>
             </div>
           </div>
         </section>
