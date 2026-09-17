@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import Link from 'next/link'
+import Image from 'next/image'
 import SiteHeader from '../components/SiteHeader'
 import SiteFooter from '../components/SiteFooter'
 import SectionHeading from '../components/SectionHeading'
@@ -13,9 +14,9 @@ export default function Home() {
   const technologies = new Set(projects.flatMap((project) => project.tech)).size
 
   const facts = [
-    { label: 'Experience', value: '3+ years, full-stack' },
-    { label: 'Projects delivered', value: `${projects.length}, across web and mobile` },
-    { label: 'Reply time', value: 'Usually within 24 hours' },
+    { label: 'Experience', value: '3+ years' },
+    { label: 'Projects', value: `${projects.length} delivered` },
+    { label: 'Reply time', value: 'Within 24h' },
   ]
 
   return (
@@ -33,64 +34,78 @@ export default function Home() {
 
       <main className="pt-[72px]">
         {/* Hero */}
-        <section className="max-w-[1180px] mx-auto px-6 sm:px-10">
-          <div className="py-16 md:py-24 grid gap-14 lg:grid-cols-[1.45fr_1fr] lg:gap-20 items-start">
-            <div className="animate-rise">
-              <div className="flex flex-wrap items-center gap-x-4 gap-y-2 mb-7">
-                <span className="inline-flex items-center gap-2 eyebrow text-accent">
-                  <span className="w-1.5 h-1.5 rounded-full bg-accent" />
-                  Available for new projects
-                </span>
-                <span className="text-rule">·</span>
-                <span className="eyebrow">Bangladesh · GMT+6</span>
-              </div>
+        <section className="relative overflow-hidden">
+          <div aria-hidden="true" className="absolute inset-0 lg:left-auto lg:w-[47%]">
+            <Image
+              src="/hero_section.png"
+              alt=""
+              fill
+              priority
+              sizes="(min-width: 1024px) 47vw, 100vw"
+              className="object-cover object-[50%_25%]"
+            />
+            <div className="absolute inset-0 bg-paper/85 lg:bg-transparent lg:bg-linear-to-r lg:from-paper lg:via-paper/80 lg:via-25% lg:to-transparent lg:to-45%" />
+          </div>
 
-              <h1 className="font-serif text-[clamp(2.35rem,5.4vw,4rem)] leading-[1.08] tracking-[-0.015em] m-0 max-w-[16ch]">
-                I build web apps, mobile apps, and{' '}
-                <span className="italic">the systems behind them.</span>
-              </h1>
-
-              <p className="mt-7 text-[1.0625rem] md:text-lg leading-[1.75] text-ink-soft max-w-[52ch]">
-                Full-stack developer with 3+ years of experience. Back end in ASP.NET and MSSQL,
-                websites in React and Next.js, and iOS and Android apps in React Native — including
-                the AI features on top.
-              </p>
-
-              <div className="mt-9 flex flex-wrap items-center gap-4">
-                <Link
-                  href="/work"
-                  className="group inline-flex items-center gap-2.5 px-7 py-3.5 bg-ink text-paper text-[0.9375rem] tracking-wide transition-colors duration-300 hover:bg-accent"
-                >
-                  View selected work
-                  <Icon name="arrowRight" size={16} className="transition-transform duration-300 group-hover:translate-x-1" />
-                </Link>
-              </div>
-
-              {/* Stack at a glance */}
-              <div className="mt-12 pt-6 border-t border-rule-soft flex flex-wrap items-center gap-x-6 gap-y-3">
-                {['ASP.NET', 'React', 'React Native', 'Next.js', 'MSSQL'].map((tech) => (
-                  <span key={tech} className="inline-flex items-center gap-2 text-[0.9375rem] text-ink-soft">
-                    <TechMark name={tech} size={15} />
-                    {tech}
+          <div className="relative max-w-[1180px] mx-auto px-6 sm:px-10">
+            <div className="py-16 md:py-24 lg:min-h-[760px] grid lg:grid-cols-[1.45fr_1fr] lg:gap-20 items-center">
+              <div className="animate-rise">
+                <div className="flex flex-wrap items-center gap-x-4 gap-y-2 mb-7">
+                  <span className="inline-flex items-center gap-2 eyebrow text-accent">
+                    <span className="w-1.5 h-1.5 rounded-full bg-accent" />
+                    Available for new projects
                   </span>
-                ))}
+                  <span className="text-rule">·</span>
+                  <span className="eyebrow">Bangladesh · GMT+6</span>
+                </div>
+
+                <h1 className="font-serif text-[clamp(2.35rem,5.4vw,4rem)] leading-[1.08] tracking-[-0.015em] m-0 max-w-[16ch]">
+                  I build web apps, mobile apps, and{' '}
+                  <span className="italic">the systems behind them.</span>
+                </h1>
+
+                <p className="mt-7 text-[1.0625rem] md:text-lg leading-[1.75] text-ink-soft max-w-[52ch]">
+                  Full-stack developer with 3+ years of experience. Back end in ASP.NET and MSSQL,
+                  websites in React and Next.js, and iOS and Android apps in React Native — including
+                  the AI features on top.
+                </p>
+
+                <div className="mt-9 flex flex-wrap items-center gap-4">
+                  <Link
+                    href="/work"
+                    className="group inline-flex items-center gap-2.5 px-7 py-3.5 bg-ink text-paper text-[0.9375rem] tracking-wide transition-colors duration-300 hover:bg-accent"
+                  >
+                    View selected work
+                    <Icon name="arrowRight" size={16} className="transition-transform duration-300 group-hover:translate-x-1" />
+                  </Link>
+                </div>
+
+                {/* Stack and quick facts */}
+                <div className="mt-12 pt-6 border-t border-rule-soft flex flex-wrap items-center gap-x-6 gap-y-5 xl:flex-nowrap xl:w-max">
+                  <div className="flex flex-wrap items-center gap-x-3.5 gap-y-2 xl:flex-nowrap">
+                    {['ASP.NET', 'React', 'React Native', 'Next.js', 'MSSQL'].map((tech) => (
+                      <span key={tech} className="inline-flex items-center gap-1.5 whitespace-nowrap text-sm text-ink-soft">
+                        <TechMark name={tech} size={13} />
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+
+                  <span aria-hidden="true" className="hidden xl:block w-px h-9 bg-rule" />
+
+                  <dl className="m-0 flex flex-wrap gap-x-5 gap-y-3 xl:flex-nowrap">
+                    {facts.map((fact) => (
+                      <div key={fact.label} className="whitespace-nowrap">
+                        <dt className="text-[0.6875rem] uppercase tracking-[0.12em] text-ink-mute mb-0.5">
+                          {fact.label}
+                        </dt>
+                        <dd className="m-0 text-sm text-ink">{fact.value}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                </div>
               </div>
             </div>
-
-            {/* Colophon-style fact list */}
-            <aside className="lg:pt-4 lg:border-l lg:border-rule lg:pl-12">
-              <div className="eyebrow mb-6">Quick facts</div>
-              <dl className="m-0">
-                {facts.map((fact) => (
-                  <div key={fact.label} className="py-4 border-b border-rule-soft first:border-t first:border-rule-soft">
-                    <dt className="text-[0.8125rem] uppercase tracking-[0.12em] text-ink-mute mb-1.5">
-                      {fact.label}
-                    </dt>
-                    <dd className="m-0 text-[0.9375rem] text-ink">{fact.value}</dd>
-                  </div>
-                ))}
-              </dl>
-            </aside>
           </div>
         </section>
 
