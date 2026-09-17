@@ -111,16 +111,27 @@ export default function Work() {
                       ))}
                     </div>
 
-                    {project.liveUrl && (
-                      <a
-                        href={project.liveUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 mt-5 text-[0.9375rem] text-ink border-b border-ink pb-0.5 transition-colors hover:text-accent hover:border-accent"
-                      >
-                        Visit site
-                        <Icon name="arrowUpRight" size={14} />
-                      </a>
+                    {(project.liveUrl || project.appStoreUrl || project.playStoreUrl) && (
+                      <div className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-3">
+                        {[
+                          { href: project.liveUrl, label: project.liveLabel || 'Visit site' },
+                          { href: project.appStoreUrl, label: 'App Store' },
+                          { href: project.playStoreUrl, label: 'Google Play' },
+                        ]
+                          .filter((link) => link.href)
+                          .map((link) => (
+                            <a
+                              key={link.label}
+                              href={link.href}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-2 text-[0.9375rem] text-ink border-b border-ink pb-0.5 transition-colors hover:text-accent hover:border-accent"
+                            >
+                              {link.label}
+                              <Icon name="arrowUpRight" size={14} />
+                            </a>
+                          ))}
+                      </div>
                     )}
                   </div>
 

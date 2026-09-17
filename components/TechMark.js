@@ -141,7 +141,7 @@ const MARKS = {
   '.net': { glyph: 'server' },
   'express.js': { glyph: 'server' },
   'express': { glyph: 'server' },
-  'radzen': { glyph: 'monitor' },
+  'rasdan': { glyph: 'monitor' },
   'svelte': { glyph: 'monitor' },
   'postgresql': { glyph: 'db' },
   'javascript': { glyph: 'code' },

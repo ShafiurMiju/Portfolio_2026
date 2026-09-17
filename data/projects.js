@@ -8,20 +8,21 @@ export const projects = [
     id: 'dcn-platform',
     title: 'Document Compliance Network',
     category: 'Enterprise Platform',
-    summary: 'Long-running .NET compliance platform — the flagship product.',
+    summary: 'Admin portal for a long-running .NET compliance platform — the flagship product.',
     description:
-      'The web platform behind DCN: organizations manage compliance documents, assignments and review workflows end to end. Built on ASP.NET with Radzen components over MSSQL, and maintained continuously as the product grows.',
+      'The admin portal behind DCN — the software organizations use to manage compliance documents, assignments and review workflows end to end. Built on ASP.NET with Rasdan components over MSSQL, and maintained continuously as the product grows.',
     highlights: [
-      'ASP.NET back end over MSSQL with a Radzen component layer',
+      'ASP.NET back end over MSSQL with a Rasdan component layer',
       'Document assignment, review and status workflows for whole organizations',
       'Shares its data model with the DCN mobile app',
     ],
-    tech: ['.NET', 'C#', 'Radzen', 'MSSQL'],
+    tech: ['.NET', 'C#', 'Rasdan', 'MSSQL'],
     platforms: ['Web'],
     status: 'Long-running',
     gradient: 'primary',
     featured: true,
-    liveUrl: '',
+    liveUrl: 'https://documentcompliance.com/',
+    liveLabel: 'Product site',
     githubUrl: '',
   },
   {
@@ -40,7 +41,7 @@ export const projects = [
     platforms: ['Web', 'API'],
     gradient: 'accent',
     featured: true,
-    liveUrl: '',
+    liveUrl: 'https://ai.optimalmd.com/',
     githubUrl: '',
   },
   {
@@ -58,7 +59,7 @@ export const projects = [
     platforms: ['Web', 'API'],
     gradient: 'pink',
     featured: true,
-    liveUrl: '',
+    liveUrl: 'https://ai.iamnd.org/',
     githubUrl: '',
   },
   {
@@ -77,7 +78,8 @@ export const projects = [
     platforms: ['Web'],
     gradient: 'primary',
     featured: true,
-    liveUrl: '',
+    liveUrl: 'https://optimalmd.com/',
+    liveLabel: 'Product site',
     githubUrl: '',
   },
   {
@@ -98,7 +100,9 @@ export const projects = [
     year: '2025 — 2026',
     gradient: 'accent',
     featured: true,
-    liveUrl: '',
+    liveUrl: 'https://nupathapp.com/',
+    liveLabel: 'Product site',
+    appStoreUrl: 'https://apps.apple.com/ca/app/nupath-ai/id6754751735',
     githubUrl: '',
   },
   {
@@ -119,7 +123,8 @@ export const projects = [
     year: '2025 — 2026',
     gradient: 'pink',
     featured: false,
-    liveUrl: '',
+    liveUrl: 'https://healthliveshere.ai/',
+    liveLabel: 'Product site',
     githubUrl: '',
   },
   {
@@ -141,6 +146,8 @@ export const projects = [
     gradient: 'accent',
     featured: false,
     liveUrl: '',
+    appStoreUrl: 'https://apps.apple.com/au/app/optimalmd/id6752685266',
+    playStoreUrl: 'https://play.google.com/store/apps/details?id=com.optimalmdapp.app',
     githubUrl: '',
   },
   {
@@ -162,15 +169,17 @@ export const projects = [
     gradient: 'pink',
     featured: false,
     liveUrl: '',
+    appStoreUrl: 'https://apps.apple.com/us/app/document-compliance-network/id6749664846',
+    playStoreUrl: 'https://play.google.com/store/apps/details?id=com.documentcompliance.dcn',
     githubUrl: '',
   },
   {
-    id: 'arla',
-    title: 'ARLA Mobile App',
+    id: 'iconic-wave',
+    title: 'Iconic Wave Mobile App',
     category: 'Mobile App',
     summary: 'Field-force app themed at runtime from the backend.',
     description:
-      'An in-progress field operations app for CMs, SRs and distributors. Brand colors and logo are fetched from the backend and applied at runtime, so one binary serves multiple brands. Includes leave management, camera capture and offline-tolerant auth.',
+      'An in-progress field operations app for Iconic Wave employees — CMs, SRs and distributors — on Android and iOS. Brand colors and logo are fetched from the backend and applied at runtime, so one binary serves multiple brands. Includes leave management, camera capture and offline-tolerant auth.',
     highlights: [
       'Runtime theming — palette and logo driven by API config',
       'Leave request workflow against a versioned REST API',
@@ -183,7 +192,8 @@ export const projects = [
     status: 'Ongoing',
     gradient: 'primary',
     featured: false,
-    liveUrl: '',
+    liveUrl: 'https://iconicwave.xyz/',
+    liveLabel: 'Product site',
     githubUrl: '',
   },
   {
@@ -192,7 +202,7 @@ export const projects = [
     category: 'Mobile App',
     summary: 'Homeowner services app with frictionless OTP onboarding.',
     description:
-      'A homeowner-facing service app with address autocomplete and SMS-retriever OTP sign-in that fills the code without leaving the keyboard, over a Redux Toolkit data layer.',
+      'The app Trust Patrick’s verified homeowner clients use on Android and iOS, with address autocomplete and SMS-retriever OTP sign-in that fills the code without leaving the keyboard, over a Redux Toolkit data layer.',
     highlights: [
       'Android SMS Retriever OTP auto-fill with a manual fallback',
       'Google Places autocomplete for property addresses',
@@ -203,7 +213,10 @@ export const projects = [
     year: '2025 — 2026',
     gradient: 'accent',
     featured: false,
-    liveUrl: '',
+    liveUrl: 'https://trustpatrick.com/',
+    liveLabel: 'Product site',
+    appStoreUrl: 'https://apps.apple.com/us/app/trust-patrick-referral-network/id6758261425',
+    playStoreUrl: 'https://play.google.com/store/apps/details?id=com.trustpatrick.homeowner',
     githubUrl: '',
   },
   {
@@ -212,7 +225,7 @@ export const projects = [
     category: 'Web Portal',
     summary: 'Employee management portal on the MERN stack.',
     description:
-      'A full-stack employee portal — records, roles and day-to-day staff operations — built with an Express and MongoDB back end behind a React and Tailwind interface.',
+      'The employee management portal MonkeyMans runs its team on — records, roles and day-to-day staff operations — built with an Express and MongoDB back end behind a React and Tailwind interface.',
     highlights: [
       'Express + MongoDB API with role-aware access',
       'React and Tailwind interface for staff operations',
@@ -221,7 +234,8 @@ export const projects = [
     platforms: ['Web'],
     gradient: 'pink',
     featured: false,
-    liveUrl: '',
+    liveUrl: 'https://monkeymans.com/',
+    liveLabel: 'Product site',
     githubUrl: '',
   },
   {
@@ -239,7 +253,8 @@ export const projects = [
     platforms: ['Web'],
     gradient: 'primary',
     featured: false,
-    liveUrl: '',
+    liveUrl: 'https://octopi-digital.com/',
+    liveLabel: 'Product site',
     githubUrl: '',
   },
   {
@@ -275,28 +290,7 @@ export const projects = [
     personal: true,
     gradient: 'pink',
     featured: false,
-    liveUrl: '',
-    githubUrl: '',
-  },
-  {
-    id: 'flowdraft',
-    title: 'FlowDraft',
-    category: 'Personal Project',
-    summary: 'Live subtitles that translate any app’s audio into Bangla.',
-    description:
-      'A native macOS utility that captures system audio per application through ScreenCaptureKit, transcribes it with Groq Whisper, translates it to Bangla, and paints source-labeled subtitles on a borderless, click-through, always-on-top panel.',
-    highlights: [
-      'One capture engine per app, merged into a single tagged stream',
-      '16 kHz mono WAV chunking with a silence gate to cut API spend',
-      'Swift 6 strict concurrency with a SwiftUI overlay',
-    ],
-    tech: ['Swift 6', 'SwiftUI', 'ScreenCaptureKit', 'Groq Whisper'],
-    platforms: ['macOS'],
-    year: '2026',
-    personal: true,
-    gradient: 'primary',
-    featured: false,
-    liveUrl: '',
+    liveUrl: 'https://copaste-lime.vercel.app/',
     githubUrl: '',
   },
 ]

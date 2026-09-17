@@ -26,7 +26,6 @@ export const skillGroups = [
       'Node.js',
       'FastAPI',
       'REST APIs',
-      'Radzen',
     ],
   },
   {
