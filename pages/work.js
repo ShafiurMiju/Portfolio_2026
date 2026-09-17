@@ -1,14 +1,10 @@
 import Head from 'next/head'
-import Link from 'next/link'
 import { useState } from 'react'
 import SiteHeader from '../components/SiteHeader'
 import SiteFooter from '../components/SiteFooter'
-import SectionHeading from '../components/SectionHeading'
 import Icon, { PLATFORM_ICONS } from '../components/Icon'
 import { projects, projectCategories } from '../data/projects'
 
-const FIVERR_URL = 'https://www.fiverr.com/shafiur_miju'
-const UPWORK_URL = 'https://www.upwork.com/freelancers/~012a28f5b70869b9f0'
 
 export default function Work() {
   const [filter, setFilter] = useState('all')
@@ -163,45 +159,6 @@ export default function Work() {
           )}
         </section>
 
-        {/* Closing */}
-        <section className="border-t border-rule bg-paper-alt/60">
-          <div className="max-w-[1180px] mx-auto px-6 sm:px-10 py-20">
-            <div className="max-w-[58ch]">
-              <SectionHeading title="Need something similar?" />
-              <p className="text-ink-soft leading-[1.8] -mt-4">
-                Tell me what you need on Fiverr or Upwork and I'll reply with a plan: what gets built, how
-                long it takes and what it costs.
-              </p>
-              <div className="mt-8 flex flex-wrap items-center gap-6">
-                <a
-                  href={FIVERR_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group inline-flex items-center gap-2.5 px-7 py-3.5 bg-ink text-paper text-[0.9375rem] tracking-wide transition-colors duration-300 hover:bg-accent"
-                >
-                  Hire me on Fiverr
-                  <Icon name="arrowUpRight" size={16} className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                </a>
-                <a
-                  href={UPWORK_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group inline-flex items-center gap-2.5 px-7 py-3.5 border border-rule text-ink text-[0.9375rem] tracking-wide transition-colors duration-300 hover:border-ink"
-                >
-                  Hire me on Upwork
-                  <Icon name="arrowUpRight" size={16} className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                </a>
-                <Link
-                  href="/contact"
-                  className="group inline-flex items-center gap-2 text-[0.9375rem] text-ink border-b border-ink pb-0.5 transition-colors hover:text-accent hover:border-accent"
-                >
-                  How working together goes
-                  <Icon name="arrowRight" size={15} className="transition-transform duration-300 group-hover:translate-x-1" />
-                </Link>
-              </div>
-            </div>
-          </div>
-        </section>
       </main>
 
       <SiteFooter />

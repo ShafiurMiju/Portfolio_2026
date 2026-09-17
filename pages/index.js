@@ -8,8 +8,6 @@ import TechMark from '../components/TechMark'
 import { projects, featuredProjects } from '../data/projects'
 import { skillGroups } from '../data/skills'
 
-const FIVERR_URL = 'https://www.fiverr.com/shafiur_miju'
-const UPWORK_URL = 'https://www.upwork.com/freelancers/~012a28f5b70869b9f0'
 
 export default function Home() {
   const technologies = new Set(projects.flatMap((project) => project.tech)).size
@@ -18,7 +16,6 @@ export default function Home() {
     { label: 'Experience', value: '3+ years, full-stack' },
     { label: 'Projects delivered', value: `${projects.length}, across web and mobile` },
     { label: 'Reply time', value: 'Usually within 24 hours' },
-    { label: 'How to hire me', value: 'On Fiverr or Upwork — fixed price, agreed milestones' },
   ]
 
   return (
@@ -59,33 +56,24 @@ export default function Home() {
                 the AI features on top.
               </p>
 
+              <div className="mt-9 flex flex-wrap items-center gap-4">
+                <Link
+                  href="/work"
+                  className="group inline-flex items-center gap-2.5 px-7 py-3.5 bg-ink text-paper text-[0.9375rem] tracking-wide transition-colors duration-300 hover:bg-accent"
+                >
+                  View selected work
+                  <Icon name="arrowRight" size={16} className="transition-transform duration-300 group-hover:translate-x-1" />
+                </Link>
+              </div>
+
               {/* Stack at a glance */}
-              <div className="mt-8 pt-6 border-t border-rule-soft flex flex-wrap items-center gap-x-6 gap-y-3">
+              <div className="mt-12 pt-6 border-t border-rule-soft flex flex-wrap items-center gap-x-6 gap-y-3">
                 {['ASP.NET', 'React', 'React Native', 'Next.js', 'MSSQL'].map((tech) => (
                   <span key={tech} className="inline-flex items-center gap-2 text-[0.9375rem] text-ink-soft">
                     <TechMark name={tech} size={15} />
                     {tech}
                   </span>
                 ))}
-              </div>
-
-              <div className="mt-9 flex flex-wrap items-center gap-4">
-                <a
-                  href={FIVERR_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group inline-flex items-center gap-2.5 px-7 py-3.5 bg-ink text-paper text-[0.9375rem] tracking-wide transition-colors duration-300 hover:bg-accent"
-                >
-                  Hire me on Fiverr
-                  <Icon name="arrowUpRight" size={16} className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                </a>
-                <Link
-                  href="/work"
-                  className="group inline-flex items-center gap-2.5 px-7 py-3.5 border border-rule text-ink text-[0.9375rem] tracking-wide transition-colors duration-300 hover:border-ink"
-                >
-                  View selected work
-                  <Icon name="arrowRight" size={16} className="transition-transform duration-300 group-hover:translate-x-1" />
-                </Link>
               </div>
             </div>
 
@@ -155,7 +143,6 @@ export default function Home() {
                   'One codebase shipped to web, iOS and Android',
                   'AI features built in — and run on your own server when the data is private',
                   'Based in Bangladesh (GMT+6), working with clients in any timezone',
-                  'Hired through Fiverr or Upwork, with agreed milestones and a fixed price',
                 ].map((point) => (
                   <li key={point} className="flex gap-3 py-3.5 border-b border-rule-soft">
                     <Icon name="check" size={15} className="text-accent mt-[0.3rem]" strokeWidth={1.6} />
@@ -294,50 +281,6 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Engagement */}
-        <section id="contact" className="border-t border-rule bg-paper-alt/60 scroll-mt-24">
-          <div className="max-w-[1180px] mx-auto px-6 sm:px-10 py-24 md:py-28">
-            <div className="max-w-[62ch]">
-              <div className="eyebrow mb-6">Start a project</div>
-              <h2 className="font-serif text-[clamp(2rem,4.5vw,3rem)] leading-[1.15] m-0">
-Want to work together?
-              </h2>
-              <p className="mt-6 text-ink-soft leading-[1.8]">
-                Tell me what you need and I'll reply with a plan: what I'll build, how long it takes
-                and what it costs. Everything runs through Fiverr or Upwork, so you're protected from the first
-                message to final delivery.
-              </p>
-              <div className="mt-10 flex flex-wrap items-center gap-6">
-                <a
-                  href={FIVERR_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group inline-flex items-center gap-2.5 px-7 py-3.5 bg-ink text-paper text-[0.9375rem] tracking-wide transition-colors duration-300 hover:bg-accent"
-                >
-                  Hire me on Fiverr
-                  <Icon name="arrowUpRight" size={16} className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                </a>
-                <a
-                  href={UPWORK_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group inline-flex items-center gap-2.5 px-7 py-3.5 border border-rule text-ink text-[0.9375rem] tracking-wide transition-colors duration-300 hover:border-ink"
-                >
-                  Hire me on Upwork
-                  <Icon name="arrowUpRight" size={16} className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                </a>
-                <Link
-                  href="/contact"
-                  className="group inline-flex items-center gap-2 text-[0.9375rem] text-ink border-b border-ink pb-0.5 transition-colors hover:text-accent hover:border-accent"
-                >
-                  How working together goes
-                  <Icon name="arrowRight" size={15} className="transition-transform duration-300 group-hover:translate-x-1" />
-                </Link>
-              </div>
-              <div className="eyebrow mt-8">fiverr.com/shafiur_miju · upwork.com</div>
-            </div>
-          </div>
-        </section>
       </main>
 
       <SiteFooter />

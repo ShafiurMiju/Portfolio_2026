@@ -128,28 +128,15 @@ See all articles
           <div className="max-w-[1180px] mx-auto px-6 sm:px-10 py-16">
             <div className="flex flex-wrap items-center justify-between gap-6">
               <p className="font-serif text-[clamp(1.35rem,2.6vw,1.75rem)] m-0 max-w-[38ch] leading-snug">
-                Need something like this built?
+                Want to see what I have built?
               </p>
-              <div className="flex flex-wrap items-center gap-4">
-              <a
-                href="https://www.fiverr.com/shafiur_miju"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group inline-flex items-center gap-2.5 px-7 py-3.5 bg-ink text-paper text-[0.9375rem] tracking-wide transition-colors duration-300 hover:bg-accent"
+              <Link
+                href="/work"
+                className="group inline-flex items-center gap-2 text-[0.9375rem] text-ink border-b border-ink pb-0.5 transition-colors hover:text-accent hover:border-accent"
               >
-                Hire me on Fiverr
-                <Icon name="arrowUpRight" size={16} className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-              </a>
-              <a
-                href="https://www.upwork.com/freelancers/~012a28f5b70869b9f0"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group inline-flex items-center gap-2.5 px-7 py-3.5 border border-rule text-ink text-[0.9375rem] tracking-wide transition-colors duration-300 hover:border-ink"
-              >
-                Hire me on Upwork
-                <Icon name="arrowUpRight" size={16} className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-              </a>
-              </div>
+                See the projects
+                <Icon name="arrowRight" size={15} className="transition-transform duration-300 group-hover:translate-x-1" />
+              </Link>
             </div>
           </div>
         </section>

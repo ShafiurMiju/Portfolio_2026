@@ -1,7 +1,6 @@
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
-import Icon from './Icon'
 
 const NAV = [
   { label: 'Work', href: '/work' },
@@ -55,15 +54,6 @@ export default function SiteHeader() {
                 {item.label}
               </Link>
             ))}
-            <a
-              href="https://www.fiverr.com/shafiur_miju"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group inline-flex items-center gap-2 text-[0.9375rem] px-4 py-2 border border-ink text-ink transition-colors duration-200 hover:bg-ink hover:text-paper"
-            >
-              Hire on Fiverr
-              <Icon name="arrowUpRight" size={14} />
-            </a>
           </nav>
 
           <button
@@ -100,15 +90,6 @@ export default function SiteHeader() {
                 {item.label}
               </Link>
             ))}
-            <a
-              href="https://www.fiverr.com/shafiur_miju"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-4 mb-2 py-3 inline-flex items-center justify-center gap-2 border border-ink text-ink hover:bg-ink hover:text-paper transition-colors"
-            >
-              Hire on Fiverr
-              <Icon name="arrowUpRight" size={14} />
-            </a>
           </nav>
         </div>
       )}
